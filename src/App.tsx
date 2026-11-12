@@ -1,5 +1,8 @@
-import { useCallback, useEffect, useMemo, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
+import { DevPanel } from "./dev/DevPanel"
+import { modeFrom } from "./engine/mode"
 import { Frame } from "./frame/Frame"
+import { Stage } from "./frame/Stage"
 import { clockText, osloMinutes } from "./engine/time"
 import type { Page } from "./engine/types"
 import { useLoaded } from "./engine/useLoaded"
@@ -17,20 +20,16 @@ declare global {
   }
 }
 
-/**
- * Address options, for trying things out:
- *   ?demo=1       draw every module from its example data
- *   ?page=<id>    stay on one page
- */
-const options = new URLSearchParams(window.location.search)
-const demo = options.get("demo") === "1"
-const held = options.get("page")
+const mode = modeFrom(window.location.search, import.meta.env.DEV)
 
 export function App() {
-  const pages: Page[] = useMemo(() => (held ? rundown.filter((page) => page.id === held) : rundown), [])
-  const loaded = useLoaded(pages, demo)
+  const pages: Page[] = rundown
+  const [demo, setDemo] = useState(mode.demo)
+  const [held, setHeld] = useState(mode.page) // the id of a page to stay on
+  const { loaded, problems } = useLoaded(pages, demo)
   const now = useNow(1000)
-  const [on, setOn] = useState(true)
+  // On air (?duration) the template stays dark until CasparCG calls play().
+  const [on, setOn] = useState(mode.autoplay)
   const [index, setIndex] = useState(-1)
   const [turn, setTurn] = useState(0) // counts page changes, to restart animations
   const [leaving, setLeaving] = useState(false)
@@ -44,8 +43,17 @@ export function App() {
 
   // Start on the first page that has something to show, and move on if the
   // current page loses all its modules.
+  // A held page stays even when it has nothing to show.
   useEffect(() => {
     if (leaving) return
+    if (held) {
+      const wanted = pages.findIndex((page) => page.id === held)
+      if (wanted >= 0 && wanted !== index) {
+        setIndex(wanted)
+        setTurn((t) => t + 1)
+      }
+      if (wanted >= 0) return
+    }
     if (index < 0 || modules.length === 0) {
       const first = nextPage(pages, index, loaded, Date.now(), demo)
       if (first >= 0 && first !== index) {
@@ -53,14 +61,14 @@ export function App() {
         setTurn((t) => t + 1)
       }
     }
-  }, [index, modules.length, leaving, pages, loaded])
+  }, [index, modules.length, leaving, pages, loaded, demo, held])
 
   // Each page stays for its own number of seconds.
   useEffect(() => {
     if (!page || held) return
     const timer = window.setTimeout(advance, page.seconds * 1000)
     return () => window.clearTimeout(timer)
-  }, [page, turn, advance])
+  }, [page, turn, advance, held])
 
   // Leaving: fade the old page out, then bring the next one in.
   useEffect(() => {
@@ -72,9 +80,9 @@ export function App() {
       setLeaving(false)
     }, LEAVE_MS)
     return () => window.clearTimeout(timer)
-  }, [leaving, index, pages, loaded])
+  }, [leaving, index, pages, loaded, demo])
 
-  // CasparCG calls these. In a plain browser the template simply runs.
+  // CasparCG calls these.
   useEffect(() => {
     window.play = () => setOn(true)
     window.stop = () => setOn(false)
@@ -90,7 +98,7 @@ export function App() {
   const oldest = fetched.length ? clockText(osloMinutes(new Date(Math.min(...fetched)))) : undefined
   const nextTitle = upcoming >= 0 && upcoming !== index ? pages[upcoming].title : undefined
 
-  return (
+  const frame = (
     <Frame
       on={on}
       leaving={leaving}
@@ -130,5 +138,24 @@ export function App() {
         ))}
       </div>
     </Frame>
+  )
+
+  if (!mode.dev) return <Stage>{frame}</Stage>
+  return (
+    <DevPanel
+      pages={pages}
+      current={page?.id}
+      held={held}
+      demo={demo}
+      on={on}
+      loaded={loaded}
+      problems={problems}
+      now={now.getTime()}
+      onHold={setHeld}
+      onNext={advance}
+      onDemo={setDemo}
+    >
+      <Stage centred>{frame}</Stage>
+    </DevPanel>
   )
 }

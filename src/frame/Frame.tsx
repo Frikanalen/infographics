@@ -1,20 +1,9 @@
 // The frame belongs to the template and is the same on every page: the brand
 // stripe, the head with the clock, and the foot with the source and progress.
-import { useEffect, useState, type ReactNode } from "react"
+import type { ReactNode } from "react"
 import { TimeText } from "../blocks"
 import { dateText, osloMinutes } from "../engine/time"
 import { useNow } from "../engine/useNow"
-
-function useScale(): number {
-  const measure = () => Math.min(window.innerWidth / 1280, window.innerHeight / 720)
-  const [scale, setScale] = useState(measure)
-  useEffect(() => {
-    const onResize = () => setScale(measure())
-    window.addEventListener("resize", onResize)
-    return () => window.removeEventListener("resize", onResize)
-  }, [])
-  return scale
-}
 
 export function Frame(props: {
   on: boolean
@@ -24,11 +13,10 @@ export function Frame(props: {
   foot: ReactNode
   children: ReactNode
 }) {
-  const scale = useScale()
   const now = useNow(1000)
   const classes = ["frame", props.on ? "" : "off", props.leaving ? "leaving" : ""].join(" ")
   return (
-    <div className={classes} style={{ transform: `scale(${scale})` }}>
+    <div className={classes}>
       <div className="stripe">
         <i />
         <i />

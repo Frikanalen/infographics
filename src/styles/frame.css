@@ -6,14 +6,28 @@ body {
   overflow: hidden;
 }
 
-/* The frame is authored in real pixels at 1280x720 and scaled to the window. */
-.frame {
+/* The frame is authored in real pixels at 1280x720. The stage scales it to
+   the room it has: the whole window on air, the space beside the dev panel
+   otherwise. */
+.stage {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.stage-fit {
   position: absolute;
   left: 0;
   top: 0;
   width: 1280px;
   height: 720px;
   transform-origin: 0 0;
+}
+.frame {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1280px;
+  height: 720px;
   overflow: hidden;
   background: var(--stage);
   color: var(--fg);

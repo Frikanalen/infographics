@@ -49,3 +49,6 @@ export interface Page {
 
 /** What has been loaded so far, by module id. */
 export type Loaded = Record<string, { data: unknown; at: number } | undefined>
+
+/** Why the latest load of a module failed, by module id. Shown in the dev panel. */
+export type Problems = Record<string, string | undefined>

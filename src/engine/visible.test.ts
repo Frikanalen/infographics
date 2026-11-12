@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest"
 import type { InfoModule, Page } from "./types"
-import { nextPage, showing, type Column } from "./visible"
+import { moduleState, nextPage, showing, type Column } from "./visible"
 
 const View = () => null
 const fresh: InfoModule<number> = { id: "fresh", source: "A", refreshMinutes: 5, maxAgeMinutes: 30, example: 1, View }
@@ -51,5 +51,19 @@ describe("nextPage", () => {
     expect(nextPage(pages, 0, loaded, 0, false)).toBe(2)
     expect(nextPage(pages, 2, loaded, 0, false)).toBe(0)
     expect(nextPage(pages, 0, {}, 0, false)).toBe(-1)
+  })
+})
+
+describe("moduleState", () => {
+  const load = () => 1
+  const live = { ...fresh, load }
+  it("says why a module is or is not on screen", () => {
+    expect(moduleState(live, {}, {}, 0, true)).toBe("example")
+    expect(moduleState(exampleOnly, {}, {}, 0, false)).toBe("exampleOnly")
+    expect(moduleState(live, {}, {}, 0, false)).toBe("waiting")
+    expect(moduleState(live, {}, { fresh: "Error: 502" }, 0, false)).toBe("failed")
+    expect(moduleState(live, { fresh: { data: 1, at: 0 } }, {}, 29 * MIN, false)).toBe("ok")
+    expect(moduleState(live, { fresh: { data: 1, at: 0 } }, { fresh: "Error" }, 31 * MIN, false)).toBe("stale")
+    expect(moduleState(live, { fresh: { data: null, at: 0 } }, {}, 0, false)).toBe("nothing")
   })
 })

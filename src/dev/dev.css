@@ -1,0 +1,103 @@
+/* The dev panel. Deliberately plain and unlike the frame, so nobody mistakes
+   it for something that goes on air. */
+.dev {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  background: #000;
+}
+.dev-stage {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  margin: 16px;
+}
+.dev-panel {
+  width: 260px;
+  flex: none;
+  overflow-y: auto;
+  padding: 12px;
+  background: #222;
+  color: #ccc;
+  font: 12px/1.5 ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+.dev-panel section {
+  margin-bottom: 18px;
+}
+.dev-panel h2 {
+  margin: 0 0 6px;
+  font: inherit;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.dev-panel p {
+  margin: 8px 0 0;
+  color: #888;
+}
+.dev-panel code {
+  white-space: nowrap;
+  color: #ccc;
+}
+.dev-panel button {
+  font: inherit;
+  color: inherit;
+  background: #333;
+  border: 1px solid #444;
+  padding: 3px 8px;
+  cursor: pointer;
+}
+.dev-panel button:hover:not(:disabled) {
+  background: #444;
+}
+.dev-panel button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+.dev-panel button.current {
+  background: #ddd;
+  border-color: #ddd;
+  color: #000;
+}
+.dev-buttons {
+  display: flex;
+  gap: 6px;
+}
+.dev-buttons button {
+  flex: 1;
+}
+.dev-page {
+  margin-bottom: 8px;
+}
+.dev-page > button {
+  display: flex;
+  gap: 6px;
+  width: 100%;
+  text-align: left;
+  white-space: pre;
+}
+.dev-page > button em {
+  margin-left: auto;
+  font-style: normal;
+}
+.dev-module {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 1px 8px 1px 22px;
+  color: #888;
+}
+.dev-module.ok span:last-of-type,
+.dev-module.example span:last-of-type {
+  color: #8c8;
+}
+.dev-module.failed span:last-of-type,
+.dev-module.stale span:last-of-type {
+  color: #f88;
+}
+.dev-module small {
+  flex-basis: 100%;
+  font-size: 11px;
+  color: #f88;
+  overflow-wrap: anywhere;
+}
