@@ -14,14 +14,20 @@ it("reads the weather now from a forecast", () => {
     properties: {
       timeseries: [
         {
+          time: "2026-11-12T14:00:00Z",
           data: {
             instant: { details: { air_temperature: -3.6, wind_speed: 5.4 } },
             next_1_hours: { summary: { symbol_code: "snow" } },
           },
         },
-        { data: { instant: { details: { air_temperature: 9, wind_speed: 9 } } } },
+        { time: "2026-11-12T15:00:00Z", data: { instant: { details: { air_temperature: 9, wind_speed: 9 } } } },
       ],
     },
   }
-  expect(reading("tromso", forecast)).toEqual({ place: "tromso", sky: "Snø", wind: 5, temperature: -4 })
+  const at = new Date("2026-11-12T14:59:00Z")
+  expect(reading("tromso", forecast, at)).toEqual({ place: "tromso", sky: "Snø", wind: 5, temperature: -4 })
+  // An hour later the cached forecast's first entry is out of date.
+  expect(reading("tromso", forecast, new Date("2026-11-12T15:10:00Z")).temperature).toBe(9)
+  // Before the forecast begins, use its first entry.
+  expect(reading("tromso", forecast, new Date("2026-11-12T12:00:00Z")).temperature).toBe(-4)
 })

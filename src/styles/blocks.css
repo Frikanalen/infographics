@@ -125,7 +125,9 @@
   margin: 0;
 }
 
-/* CountryMap */
+/* CountryMap. Its text is in map units: the map is about 316 units wide and
+   drawn about 368px wide in four columns, so 20 units is about 23px. Keep the
+   map at four columns or more, or the text drops below 22px. */
 .map {
   display: block;
   width: 100%;
@@ -136,7 +138,7 @@
 }
 .map text {
   font-family: inherit;
-  font-size: 17px;
+  font-size: 20px;
   font-weight: 600;
   fill: var(--fg);
 }
@@ -199,7 +201,7 @@
 .track-axis {
   display: flex;
   justify-content: space-between;
-  font-size: 20px;
+  font-size: var(--size-label);
   color: var(--muted);
   padding-top: 8px;
   font-variant-numeric: tabular-nums;

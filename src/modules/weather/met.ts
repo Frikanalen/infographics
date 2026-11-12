@@ -46,6 +46,7 @@ export function skyText(symbol: string | undefined): string {
 interface Forecast {
   properties: {
     timeseries: {
+      time: string
       data: {
         instant: { details: { air_temperature: number; wind_speed: number } }
         next_1_hours?: { summary: { symbol_code: string } }
@@ -55,9 +56,14 @@ interface Forecast {
   }
 }
 
-/** The first entry in a forecast is the weather now. */
-export function reading(place: Reading["place"], forecast: Forecast): Reading {
-  const now = forecast.properties.timeseries[0].data
+/**
+ * The weather now: the last entry that has begun. A cached forecast can start
+ * an hour or two back, so the first entry is not always the current one.
+ */
+export function reading(place: Reading["place"], forecast: Forecast, at: Date = new Date()): Reading {
+  const series = forecast.properties.timeseries
+  const begun = series.filter((entry) => Date.parse(entry.time) <= at.getTime())
+  const now = (begun.length ? begun[begun.length - 1] : series[0]).data
   return {
     place,
     sky: skyText((now.next_1_hours ?? now.next_6_hours)?.summary.symbol_code),

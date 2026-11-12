@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest"
 import { dayLength, daylight, nextSolstice } from "./sun"
-import { clockText } from "./time"
+import { clockText, dayMonthText } from "./time"
 
 const OSLO = [59.91, 10.75] as const
 const TROMSO = [69.65, 18.96] as const
@@ -51,4 +51,8 @@ describe("clockText", () => {
     expect(clockText(8 * 60 + 3)).toBe("08:03")
     expect(clockText(1440)).toBe("00:00")
   })
+})
+
+it("keeps a day and month together on one line", () => {
+  expect(dayMonthText(new Date("2026-12-21T12:00:00Z"))).toBe("21. desember")
 })

@@ -60,5 +60,5 @@ const dayMonthFormat = new Intl.DateTimeFormat("nb-NO", {
   day: "numeric",
   month: "long",
 })
-/** "21. desember" */
-export const dayMonthText = (date: Date) => dayMonthFormat.format(date)
+/** "21. desember", with a space that does not break, so the date stays on one line. */
+export const dayMonthText = (date: Date) => dayMonthFormat.format(date).replace(/ /g, "\u00a0")
