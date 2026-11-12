@@ -36,15 +36,22 @@ export const rundown: Page[] = [
       { stack: [solsticeModule, dayChangeModule], columns: 4 },
     ],
   },
+  // Two pages, one meeting day each. Until today's meeting starts they are
+  // the last meeting day and today; from then on today and the next.
+  // A long agenda takes several screens, 25 seconds each.
   {
-    id: "stortinget",
+    id: "stortinget-1",
     title: "Stortinget",
     subtitle: "dagsorden i stortingssalen",
-    seconds: 45,
-    modules: [
-      { module: parliamentFirstModule, columns: 6 },
-      { module: parliamentSecondModule, columns: 6 },
-    ],
+    seconds: 25,
+    modules: [{ module: parliamentFirstModule, columns: 12 }],
+  },
+  {
+    id: "stortinget-2",
+    title: "Stortinget",
+    subtitle: "dagsorden i stortingssalen",
+    seconds: 25,
+    modules: [{ module: parliamentSecondModule, columns: 12 }],
   },
   {
     id: "vaer",

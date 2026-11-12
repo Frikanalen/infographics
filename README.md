@@ -71,6 +71,7 @@ is an object with:
 - `load`: fetches or computes the data. Leave it out and the module only
   appears in demo mode.
 - `maxAgeMinutes`: data older than this is not shown
+- `steps`: for a list too long for one screen, how many screens it needs; the page stays on each, and `View` is told which one to draw
 - `example`: sample data, so the module can be seen without a network
 - `View`: draws the data, using the blocks
 

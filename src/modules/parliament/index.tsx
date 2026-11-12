@@ -2,27 +2,21 @@ import { Detail, ModuleLabel, Notice, Row, Rows, TimeText } from "../../blocks"
 import { osloMinutes } from "../../engine/time"
 import type { InfoModule } from "../../engine/types"
 import { exampleSittings } from "./example"
-import { loadSittings, shownIn, type Sittings, type Slot } from "./stortinget"
-
-// Agenda lines are long, so each gets at least two lines, and four of them fit.
-const ROWS = 4
+import { loadSittings, screens, shownIn, type Sittings, type Slot } from "./stortinget"
 
 const dayFormat = new Intl.DateTimeFormat("nb-NO", { timeZone: "UTC", weekday: "long", day: "numeric", month: "long" })
 /** "torsdag 12. november" from "2026-11-12". */
 const dayText = (date: string) => dayFormat.format(new Date(`${date}T12:00:00Z`))
 
-/** Fewer items leave room for more of each: two lines each for four, up to four lines for one or two. */
-const linesFor = (rows: number) => (rows >= 4 ? 2 : rows === 3 ? 3 : 4)
-const clamped = (lines: number) =>
-  ({
-    display: "-webkit-box",
-    WebkitBoxOrient: "vertical",
-    WebkitLineClamp: lines,
-    overflow: "hidden",
-    lineHeight: 1.2,
-  }) as const
+const item = { display: "flex", flexDirection: "column", gap: 4, lineHeight: 1.2 } as const
 
-function half(slot: Slot): InfoModule<Sittings> {
+/**
+ * One meeting day at full width, with every agenda item in full. A long
+ * agenda is spread over several screens, and the page stays on each.
+ */
+function day(slot: Slot): InfoModule<Sittings> {
+  const agendaScreens = (data: Sittings, now: Date) =>
+    screens(shownIn(slot, data, now, osloMinutes(now)).day?.agenda ?? [])
   return {
     id: `parliament-${slot}`,
     source: "Stortinget",
@@ -30,7 +24,8 @@ function half(slot: Slot): InfoModule<Sittings> {
     maxAgeMinutes: 180,
     load: loadSittings,
     example: exampleSittings(new Date()),
-    View: ({ data, now }) => {
+    steps: (data, now) => Math.max(1, agendaScreens(data, now).length),
+    View: ({ data, now, step }) => {
       const { label, date, day } = shownIn(slot, data, now, osloMinutes(now))
       const heading = (
         <ModuleLabel>
@@ -46,41 +41,47 @@ function half(slot: Slot): InfoModule<Sittings> {
         )
       const votes = day.notes.filter((note) => /^votering/i.test(note))
       const meeting = (
-        <Detail>
+        <>
           Møte klokka <TimeText minutes={osloMinutes(new Date(day.start))} />
           {votes.map((note) => ` · ${note.charAt(0).toLowerCase()}${note.slice(1)}`)}
-        </Detail>
+        </>
       )
       if (!day.agenda)
         return (
           <>
             {heading}
-            {meeting}
+            <Detail>{meeting}</Detail>
             <Notice>Dagsorden er ikke kunngjort ennå.</Notice>
           </>
         )
-      const shown = day.agenda.slice(0, ROWS)
-      const more = day.agenda.length - shown.length
+      const all = agendaScreens(data, now)
+      const shown = all[Math.min(step, all.length - 1)] ?? []
       return (
         <>
           {heading}
-          {meeting}
-          <Rows>
-            {shown.map((item, i) => (
-              <Row key={item.number} index={i} size="roomy" columns="44px minmax(0, 1fr)" gap={12}>
-                <Detail>{item.number}</Detail>
-                <span style={clamped(linesFor(shown.length))}>{item.text}</span>
+          <Detail>
+            {meeting}
+            {all.length > 1 && ` · sak ${shown[0].number}–${shown.at(-1)!.number} av ${day.agenda.length}`}
+          </Detail>
+          <Rows key={step}>
+            {shown.map((entry, i) => (
+              <Row key={entry.number} index={i} size="roomy" columns="56px minmax(0, 1fr)" gap={12}>
+                <Detail>{entry.number}</Detail>
+                <span style={item}>
+                  <span>{entry.text}</span>
+                  {entry.from && <Detail>{entry.from}</Detail>}
+                  {entry.remark && <Detail>{entry.remark}</Detail>}
+                </span>
               </Row>
             ))}
           </Rows>
-          {more > 0 && <Detail>{more === 1 ? "og én sak til" : `og ${more} saker til`}</Detail>}
         </>
       )
     },
   }
 }
 
-/** Left half: the last meeting day until today's meeting starts, then today. */
-export const parliamentFirstModule = half("first")
-/** Right half: today until today's meeting starts, then the next meeting day. */
-export const parliamentSecondModule = half("second")
+/** The last meeting day until today's meeting starts, then today. */
+export const parliamentFirstModule = day("first")
+/** Today until today's meeting starts, then the next meeting day. */
+export const parliamentSecondModule = day("second")

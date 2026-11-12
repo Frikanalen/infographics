@@ -6,7 +6,9 @@ import {
   parseApiDate,
   parseNotes,
   sessionId,
-  shortTitle,
+  parseItemText,
+  screens,
+  itemHeight,
   shownIn,
   type Sittings,
 } from "./stortinget"
@@ -69,32 +71,42 @@ describe("reading the Storting's plan", () => {
 })
 
 describe("agenda lines", () => {
-  it("drops the preamble and keeps what the matter is about", () => {
+  it("puts the matter first and keeps where it comes from", () => {
     expect(
-      shortTitle("Innstilling fra finanskomiteen om Endringer i statsbudsjettet 2026 under Finansdepartementet"),
-    ).toBe("Endringer i statsbudsjettet 2026 under Finansdepartementet")
+      parseItemText("Innstilling fra finanskomiteen om Endringer i statsbudsjettet 2026 under Finansdepartementet"),
+    ).toEqual({
+      text: "Endringer i statsbudsjettet 2026 under Finansdepartementet",
+      from: "Innstilling fra finanskomiteen",
+    })
+    // Real lines from the week of 10 November 2026.
     expect(
-      shortTitle(
-        "Innstilling frå kontroll- og konstitusjonskomiteen om Grunnlovsforslag fra Kari Nordmann og Ola Nordmann om endring i § 49",
+      parseItemText(
+        "Innstilling fra kommunal- og forvaltningskomiteen om Representantforslag fra stortingsrepresentantene Erlend Wiborg, Rune Midtun, Helge André Njåstad og Bjørn Larsen om en tydelig og forpliktende integreringskontrakt",
       ),
-    ).toBe("Grunnlovsforslag om endring i § 49")
+    ).toEqual({
+      text: "Representantforslag om en tydelig og forpliktende integreringskontrakt",
+      from: "Innstilling fra kommunal- og forvaltningskomiteen, forslag fra Erlend Wiborg, Rune Midtun, Helge André Njåstad og Bjørn Larsen",
+    })
     expect(
-      shortTitle("Innstilling fra helse- og omsorgskomiteen om Representantforslag fra stortingsrepresentantene A, B og C om bedre tannhelse"),
-    ).toBe("Representantforslag om bedre tannhelse")
-    expect(shortTitle("Muntlig spørretime")).toBe("Muntlig spørretime")
+      parseItemText(
+        "Innstilling fra familie- og kulturkomiteen om Representantforslag frå stortingsrepresentantane Erling Sande, Kjersti Toppe og Ole Herman Sveian om å be regjeringa greie ut alternativet «Ny framtid for Nationaltheatret» grundigare",
+      ),
+    ).toEqual({
+      text: "Representantforslag om å be regjeringa greie ut alternativet «Ny framtid for Nationaltheatret» grundigare",
+      from: "Innstilling fra familie- og kulturkomiteen, forslag fra Erling Sande, Kjersti Toppe og Ole Herman Sveian",
+    })
+    expect(parseItemText("Muntlig spørretime")).toEqual({ text: "Muntlig spørretime" })
   })
 
-  it("leaves out the remark on the lines after the title", () => {
+  it("keeps the remark on the lines after the title", () => {
     expect(
-      shortTitle(
+      parseItemText(
         "Debatt om kultur- og likestillingsministerens redegjørelse om mediepolitikk og ytringsfrihet\r\n(Redegjørelsen holdt i Stortingets møte 10. november 2026)",
       ),
-    ).toBe("Debatt om kultur- og likestillingsministerens redegjørelse om mediepolitikk og ytringsfrihet")
-    expect(
-      shortTitle(
-        "Redegjørelse av justis- og beredskapsministeren om PST og Justis- og beredskapsdepartementets styring av PST\n(Det vil bli foreslått debatt umiddelbart etter redegjørelsen)",
-      ),
-    ).toBe("Redegjørelse av justis- og beredskapsministeren om PST og Justis- og beredskapsdepartementets styring av PST")
+    ).toEqual({
+      text: "Debatt om kultur- og likestillingsministerens redegjørelse om mediepolitikk og ytringsfrihet",
+      remark: "Redegjørelsen holdt i Stortingets møte 10. november 2026",
+    })
   })
 
   it("leaves out the formal last item", () => {
@@ -108,6 +120,21 @@ describe("agenda lines", () => {
       { number: 1, text: "Muntlig spørretime" },
       { number: 2, text: "Ordinær spørretime" },
     ])
+  })
+
+  it("splits a long agenda into screens of whole items, in order", () => {
+    const long = "Representantforslag om en tydelig og forpliktende integreringskontrakt for alle nyankomne"
+    const agenda = Array.from({ length: 7 }, (_, i) => ({
+      number: i + 1,
+      text: long,
+      from: "Innstilling fra kommunal- og forvaltningskomiteen, forslag fra fire representanter",
+    }))
+    const split = screens(agenda)
+    expect(split.length).toBeGreaterThan(1)
+    expect(split.flat()).toEqual(agenda)
+    for (const screen of split) expect(screen.reduce((sum, item) => sum + itemHeight(item), 0)).toBeLessThanOrEqual(440)
+    expect(screens([{ number: 1, text: "Muntlig spørretime" }])).toHaveLength(1)
+    expect(screens([])).toEqual([])
   })
 })
 

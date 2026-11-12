@@ -33,10 +33,15 @@ export function App() {
   const [index, setIndex] = useState(-1)
   const [turn, setTurn] = useState(0) // counts page changes, to restart animations
   const [leaving, setLeaving] = useState(false)
+  const [stepAt, setStepAt] = useState({ turn: 0, step: 0 }) // which screen of a page with several
 
   const page = index >= 0 ? pages[index] : undefined
   const columns = page ? showing(page, loaded, now.getTime(), demo) : []
   const modules = columns.flatMap((column) => column.modules)
+  // A module with a list too long for one screen asks for several; the page
+  // stays its seconds on each.
+  const steps = Math.max(1, ...modules.map((m) => m.module.steps?.(m.data, now) ?? 1))
+  const step = stepAt.turn === turn ? Math.min(stepAt.step, steps - 1) : 0
   const upcoming = nextPage(pages, Math.max(index, 0), loaded, now.getTime(), demo)
 
   const advance = useCallback(() => setLeaving(true), [])
@@ -63,12 +68,18 @@ export function App() {
     }
   }, [index, modules.length, leaving, pages, loaded, demo, held])
 
-  // Each page stays for its own number of seconds.
+  // Each page stays for its own number of seconds on each of its screens.
+  // A held page keeps going round its screens.
   useEffect(() => {
-    if (!page || held) return
-    const timer = window.setTimeout(advance, page.seconds * 1000)
+    if (!page) return
+    const last = step + 1 >= steps
+    if (held && steps === 1) return
+    const timer = window.setTimeout(() => {
+      if (last && !held) advance()
+      else setStepAt({ turn, step: last ? 0 : step + 1 })
+    }, page.seconds * 1000)
     return () => window.clearTimeout(timer)
-  }, [page, turn, advance, held])
+  }, [page, turn, step, steps, advance, held])
 
   // Leaving: fade the old page out, then bring the next one in.
   useEffect(() => {
@@ -106,8 +117,8 @@ export function App() {
       subtitle={page && modules.length ? page.subtitle : "henter informasjon"}
       foot={
         <>
-          {page && modules.length > 0 && !held && (
-            <i key={turn} className="progress" style={{ animationDuration: `${page.seconds}s` }} />
+          {page && modules.length > 0 && (!held || steps > 1) && (
+            <i key={`${turn}-${step}`} className="progress" style={{ animationDuration: `${page.seconds}s` }} />
           )}
           <span className={sources ? "source" : undefined}>
             {demo && <span className="demo">EKSEMPELDATA</span>}
@@ -131,7 +142,7 @@ export function App() {
           <div className="column" key={i}>
             {column.modules.map(({ module, data }) => (
               <div className="module" key={module.id}>
-                <module.View data={data} now={now} />
+                <module.View data={data} now={now} step={step} />
               </div>
             ))}
           </div>
