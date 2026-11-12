@@ -3,7 +3,7 @@
 // it directly (see nginx.conf and vite.config.ts).
 //
 // PhysicalFlowMap/GetFlow gives the measured flow on every link between price
-// areas in the Nordic system, refreshed about every half minute. Each entry
+// areas in the Nordic system, refreshed every few minutes. Each entry
 // is one link, OutAreaElspotId to InAreaElspotId, in MW; a positive value
 // flows from Out to In, a negative one the other way.
 //
