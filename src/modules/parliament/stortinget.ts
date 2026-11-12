@@ -14,6 +14,17 @@ export interface AgendaItem {
   from?: string
   /** A remark the agenda carries with the item. */
   remark?: string
+  /** The Storting's id for the matter, when it has one. Votes are looked up by it. */
+  sakId?: number
+  /** How it went, once it has been voted on: one line for each vote. */
+  results?: Result[]
+}
+
+export interface Result {
+  /** "Ikke vedtatt, med 71 mot 29 stemmer" */
+  line: string
+  /** What was voted through, in the Storting's words, when that adds something. */
+  text?: string
 }
 
 export interface SittingDay {
@@ -40,6 +51,27 @@ interface RawMeeting {
 interface RawAgendaItem {
   dagsordensak_nummer: number
   dagsordensak_tekst: string
+  sak_id?: number
+}
+export interface RawVote {
+  votering_id: number
+  /** The other half of an alternative vote, or -1. */
+  alternativ_votering_id: number
+  /** The agenda number of the meeting (dagsorden_nummer), not the meeting id. */
+  mote_kart_nummer: number
+  dagsorden_sak_nummer: number
+  vedtatt: boolean
+  /** Counts of those present, or -1 when the vote was not counted. */
+  antall_for: number
+  antall_mot: number
+  /** "Enstemmig vedtatt", or null for a counted vote. */
+  votering_resultat_type_tekst: string | null
+}
+export interface RawProposal {
+  /** "Komiteens tilråding", "Forslag nr. 1 fra Fremskrittspartiet", or null. */
+  forslag_betegnelse: string | null
+  /** The proposal as HTML. */
+  forslag_tekst: string | null
 }
 
 const dayKeyFormat = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Oslo" })
@@ -101,10 +133,69 @@ export function parseItemText(raw: string): Omit<AgendaItem, "number"> {
 
 export function parseAgenda(items: RawAgendaItem[]): AgendaItem[] {
   return items
-    .map((item) => ({ number: item.dagsordensak_nummer, ...parseItemText(item.dagsordensak_tekst ?? "") }))
+    .map((item) => ({
+      number: item.dagsordensak_nummer,
+      ...parseItemText(item.dagsordensak_tekst ?? ""),
+      ...(item.sak_id && item.sak_id > 0 ? { sakId: item.sak_id } : {}),
+    }))
     // Every agenda ends with "Referat", a formality.
     .filter((item) => item.text && item.text !== "Referat")
     .sort((a, b) => a.number - b.number)
+}
+
+/**
+ * The votes on one agenda item of one meeting. A matter can be voted on at
+ * several meetings; `agendaNumber` is the meeting's dagsorden_nummer. An
+ * alternative vote comes as two mirror rows: the one that carried is kept.
+ */
+export function votesOn(votes: RawVote[], agendaNumber: number, itemNumber: number): RawVote[] {
+  return votes.filter(
+    (vote) =>
+      vote.mote_kart_nummer === agendaNumber &&
+      vote.dagsorden_sak_nummer === itemNumber &&
+      (vote.alternativ_votering_id <= 0 || vote.vedtatt),
+  )
+}
+
+/** Plain text from the API's HTML. */
+export const plainText = (html: string | null) =>
+  (html ?? "")
+    .replace(/<[^>]*>/g, " ")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/\s+/g, " ")
+    .trim()
+
+// A text longer than this is a law or a budget, not something to read on a screen.
+const LONGEST_TEXT = 400
+
+/**
+ * One vote in words. `proposal` is what the vote was on, when it has been
+ * looked up. Mind that "vedtatt" in the data means the motion voted on
+ * carried, and the motion is very often the committee's recommendation to
+ * turn a proposal down: its text then ends "– vedtas ikke", and the plain
+ * way to say it is that the proposal was not adopted.
+ */
+export function resultOf(vote: RawVote, proposal?: RawProposal): Result {
+  const counted = vote.antall_for >= 0 && vote.antall_mot >= 0
+  if (!counted) return { line: vote.votering_resultat_type_tekst ?? (vote.vedtatt ? "Vedtatt" : "Ikke vedtatt") }
+  const what = proposal?.forslag_betegnelse?.trim()
+  const text = plainText(proposal?.forslag_tekst ?? null)
+  if (!vote.vedtatt)
+    return { line: `${what ?? "Forslaget"} fikk ${vote.antall_for} mot ${vote.antall_mot} stemmer og ble ikke vedtatt` }
+  const votes = `med ${vote.antall_for} mot ${vote.antall_mot} stemmer`
+  if (/[–-]\s*vedtas ikke\.?$/.test(text)) return { line: `Ikke vedtatt, ${votes}` }
+  return {
+    line: `${what ?? "Forslaget"} vedtatt ${votes}`,
+    ...(text && text.length <= LONGEST_TEXT ? { text } : {}),
+  }
+}
+
+/** Several votes on one matter are counted up instead of listed. */
+const MOST_VOTES_LISTED = 3
+export function summaryOf(votes: RawVote[]): Result {
+  const carried = votes.filter((vote) => vote.vedtatt).length
+  return { line: `${votes.length} voteringer: ${carried} vedtatt, ${votes.length - carried} ikke vedtatt` }
 }
 
 // How much room an item takes on a full-width page, estimated from its
@@ -121,7 +212,13 @@ const lines = (text: string | undefined, perLine: number) => (text ? Math.ceil(t
 export const itemHeight = (item: AgendaItem) =>
   ROW_PADDING +
   lines(item.text, TEXT_PER_LINE) * TEXT_LINE +
-  (lines(item.from, DETAIL_PER_LINE) + lines(item.remark, DETAIL_PER_LINE)) * DETAIL_LINE
+  (lines(item.from, DETAIL_PER_LINE) +
+    lines(item.remark, DETAIL_PER_LINE) +
+    (item.results ?? []).reduce(
+      (sum, result) => sum + lines(result.line, DETAIL_PER_LINE) + lines(result.text, DETAIL_PER_LINE),
+      0,
+    )) *
+    DETAIL_LINE
 
 /** The agenda in screens, each with as many whole items as fit. */
 export function screens(agenda: AgendaItem[]): AgendaItem[][] {
@@ -176,6 +273,31 @@ async function get<T>(path: string): Promise<T> {
   return response.json()
 }
 
+/** How the items of a meeting that has started went, from the votes on each matter. */
+async function withResults(agenda: AgendaItem[], agendaNumber: number): Promise<AgendaItem[]> {
+  return Promise.all(
+    agenda.map(async (item) => {
+      if (!item.sakId) return item
+      const all = await get<{ sak_votering_liste: RawVote[] }>(`voteringer?sakid=${item.sakId}&format=json`)
+      const votes = votesOn(all.sak_votering_liste ?? [], agendaNumber, item.number)
+      if (!votes.length) return item
+      if (votes.length > MOST_VOTES_LISTED) return { ...item, results: [summaryOf(votes)] }
+      const results = await Promise.all(
+        votes.map(async (vote) => {
+          // A vote that was not counted has no proposal to look up.
+          if (vote.antall_for < 0) return resultOf(vote)
+          const proposals = await get<{ voteringsforslag_liste: RawProposal[] }>(
+            `voteringsforslag?voteringid=${vote.votering_id}&format=json`,
+          )
+          const list = proposals.voteringsforslag_liste ?? []
+          return resultOf(vote, list.length === 1 ? list[0] : undefined)
+        }),
+      )
+      return { ...item, results }
+    }),
+  )
+}
+
 async function fetchSittings(now: Date): Promise<Sittings | null> {
   const plan = await get<{ moter_liste: RawMeeting[] }>(`moter?sesjonid=${sessionId(now)}&format=json`)
   const days = around(meetingDays(plan.moter_liste), now)
@@ -183,12 +305,18 @@ async function fetchSittings(now: Date): Promise<Sittings | null> {
   return Promise.all(
     days.map(async (day) => {
       const agendas = await Promise.all(
-        day.ids.map((id) => get<{ dagsordensak_liste: RawAgendaItem[] }>(`dagsorden?moteid=${id}&format=json`)),
+        day.ids.map(async (id) => {
+          const agenda = await get<{ dagsorden_nummer: number; dagsordensak_liste: RawAgendaItem[] }>(
+            `dagsorden?moteid=${id}&format=json`,
+          )
+          const items = parseAgenda(agenda.dagsordensak_liste ?? [])
+          return day.start <= now.getTime() ? withResults(items, agenda.dagsorden_nummer) : items
+        }),
       )
       return {
         date: day.date,
         start: day.start,
-        agenda: day.ids.length ? agendas.flatMap((agenda) => parseAgenda(agenda.dagsordensak_liste ?? [])) : null,
+        agenda: day.ids.length ? agendas.flat() : null,
         notes: day.notes,
       }
     }),

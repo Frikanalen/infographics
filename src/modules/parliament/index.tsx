@@ -1,4 +1,4 @@
-import { Detail, ModuleLabel, Notice, Row, Rows, TimeText } from "../../blocks"
+import { Detail, ModuleLabel, Notice, Result, Row, Rows, TimeText } from "../../blocks"
 import { osloMinutes } from "../../engine/time"
 import type { InfoModule } from "../../engine/types"
 import { exampleSittings } from "./example"
@@ -71,6 +71,12 @@ function day(slot: Slot): InfoModule<Sittings> {
                   <span>{entry.text}</span>
                   {entry.from && <Detail>{entry.from}</Detail>}
                   {entry.remark && <Detail>{entry.remark}</Detail>}
+                  {entry.results?.map((result, n) => (
+                    <span key={n} style={item}>
+                      <Result>{result.line}</Result>
+                      {result.text && <Detail>{result.text}</Detail>}
+                    </span>
+                  ))}
                 </span>
               </Row>
             ))}

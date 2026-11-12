@@ -42,6 +42,9 @@ export const Detail = ({ children, right }: { children: ReactNode; right?: boole
   <span className={right ? "detail right" : "detail"}>{children}</span>
 )
 
+/** How something went, under what it was: detail size, but in the foreground like data. */
+export const Result = ({ children }: { children: ReactNode }) => <span className="result">{children}</span>
+
 /**
  * A time of day, from minutes since midnight. The digits keep a fixed width
  * so a running clock does not jiggle, while the colon stays narrow.
