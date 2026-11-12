@@ -1,0 +1,10 @@
+[
+  { "names": "Longyearbyen", "sun": { "state": "polarNight" } },
+  { "names": ["Kárášjohka", "Karasjok"], "sun": { "state": "day", "rise": 548, "set": 794 } },
+  { "names": ["Romsa", "Tromsø"], "sun": { "state": "day", "rise": 548, "set": 828 } },
+  { "names": ["Bådåddjo", "Bodø"], "sun": { "state": "day", "rise": 521, "set": 891 } },
+  { "names": "Trondheim", "sun": { "state": "day", "rise": 510, "set": 935 } },
+  { "names": "Bergen", "sun": { "state": "day", "rise": 508, "set": 978 } },
+  { "names": "Oslo", "sun": { "state": "day", "rise": 485, "set": 955 } },
+  { "names": "Kristiansand", "sun": { "state": "day", "rise": 482, "set": 982 } }
+]

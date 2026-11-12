@@ -1,0 +1,289 @@
+{
+  "results": [
+    {
+      "id": 240731,
+      "defaultName": "",
+      "video": {
+        "id": 628694,
+        "name": "Israel - Guds folk - del 4",
+        "organization": {
+          "id": 296,
+          "name": "Agape Tromøy"
+        }
+      },
+      "schedulereason": null,
+      "starttime": "2026-11-12T08:00:00+01:00",
+      "endtime": "2026-11-12T08:28:02.368000+01:00",
+      "duration": "00:28:02.368000",
+      "grant": 7,
+      "isLive": false,
+      "liveSource": null
+    },
+    {
+      "id": 240732,
+      "defaultName": "",
+      "video": {
+        "id": 627524,
+        "name": "Shofar En reise på Judeas og Samarias fjell",
+        "organization": {
+          "id": 135,
+          "name": "Bladet Evangelisten AS"
+        }
+      },
+      "schedulereason": null,
+      "starttime": "2026-11-12T09:00:00+01:00",
+      "endtime": "2026-11-12T09:26:01.940000+01:00",
+      "duration": "00:26:01.940000",
+      "grant": 25,
+      "isLive": false,
+      "liveSource": null
+    },
+    {
+      "id": 240733,
+      "defaultName": "",
+      "video": {
+        "id": 628690,
+        "name": "Bibelen 20...Jesus begynner sitt virke",
+        "organization": {
+          "id": 143,
+          "name": "Evangeliekirken Arendal"
+        }
+      },
+      "schedulereason": null,
+      "starttime": "2026-11-12T10:00:00+01:00",
+      "endtime": "2026-11-12T10:32:39.787392+01:00",
+      "duration": "00:32:39.787392",
+      "grant": 37,
+      "isLive": false,
+      "liveSource": null
+    },
+    {
+      "id": 240734,
+      "defaultName": "",
+      "video": {
+        "id": 628176,
+        "name": "(8) Absurd video fra Jehovas Vitners ledelse. De er OVER-FOKUSERT når det gjelder seksuell adferd blant sine medlemmer. Dette er \"Pillowgate Del 1\"",
+        "organization": {
+          "id": 251,
+          "name": "Sannheten"
+        }
+      },
+      "schedulereason": null,
+      "starttime": "2026-11-12T11:00:00+01:00",
+      "endtime": "2026-11-12T11:30:42.577889+01:00",
+      "duration": "00:30:42.577889",
+      "grant": 49,
+      "isLive": false,
+      "liveSource": null
+    },
+    {
+      "id": 240735,
+      "defaultName": "",
+      "video": {
+        "id": 628691,
+        "name": "Israel - Guds folk - del 1",
+        "organization": {
+          "id": 296,
+          "name": "Agape Tromøy"
+        }
+      },
+      "schedulereason": null,
+      "starttime": "2026-11-12T17:00:00+01:00",
+      "endtime": "2026-11-12T17:27:15.008000+01:00",
+      "duration": "00:27:15.008000",
+      "grant": 91,
+      "isLive": false,
+      "liveSource": null
+    },
+    {
+      "id": 240736,
+      "defaultName": "",
+      "video": {
+        "id": 628690,
+        "name": "Bibelen 20...Jesus begynner sitt virke",
+        "organization": {
+          "id": 143,
+          "name": "Evangeliekirken Arendal"
+        }
+      },
+      "schedulereason": null,
+      "starttime": "2026-11-12T18:00:00+01:00",
+      "endtime": "2026-11-12T18:32:39.787392+01:00",
+      "duration": "00:32:39.787392",
+      "grant": 110,
+      "isLive": false,
+      "liveSource": null
+    },
+    {
+      "id": 240737,
+      "defaultName": "",
+      "video": {
+        "id": 628195,
+        "name": "(16) Jehovas Vitner høster nå fruktene av det de har sådd. Deres tillit til Det Styrende Råd rakner fullstendig.",
+        "organization": {
+          "id": 251,
+          "name": "Sannheten"
+        }
+      },
+      "schedulereason": null,
+      "starttime": "2026-11-12T19:00:00+01:00",
+      "endtime": "2026-11-12T19:18:38.600000+01:00",
+      "duration": "00:18:38.600000",
+      "grant": 130,
+      "isLive": false,
+      "liveSource": null
+    },
+    {
+      "id": 240738,
+      "defaultName": "",
+      "video": {
+        "id": 628692,
+        "name": "Israel - Guds folk - del 2",
+        "organization": {
+          "id": 296,
+          "name": "Agape Tromøy"
+        }
+      },
+      "schedulereason": null,
+      "starttime": "2026-11-13T08:00:00+01:00",
+      "endtime": "2026-11-13T08:27:51.125333+01:00",
+      "duration": "00:27:51.125333",
+      "grant": 10,
+      "isLive": false,
+      "liveSource": null
+    },
+    {
+      "id": 240739,
+      "defaultName": "",
+      "video": {
+        "id": 627629,
+        "name": "Shofar Lærdommer fra Jona",
+        "organization": {
+          "id": 135,
+          "name": "Bladet Evangelisten AS"
+        }
+      },
+      "schedulereason": null,
+      "starttime": "2026-11-13T09:00:00+01:00",
+      "endtime": "2026-11-13T09:21:42.280000+01:00",
+      "duration": "00:21:42.280000",
+      "grant": 28,
+      "isLive": false,
+      "liveSource": null
+    },
+    {
+      "id": 240740,
+      "defaultName": "",
+      "video": {
+        "id": 628667,
+        "name": "Bibelen 7...Samuel, Saul og David",
+        "organization": {
+          "id": 143,
+          "name": "Evangeliekirken Arendal"
+        }
+      },
+      "schedulereason": null,
+      "starttime": "2026-11-13T10:00:00+01:00",
+      "endtime": "2026-11-13T10:29:12.711837+01:00",
+      "duration": "00:29:12.711837",
+      "grant": 40,
+      "isLive": false,
+      "liveSource": null
+    },
+    {
+      "id": 240741,
+      "defaultName": "",
+      "video": {
+        "id": 628214,
+        "name": "(26) Jehovas Vitner lyver om utstøtelse og konsekvensene av dette. Dette har ført til flere selvmord og ødelagte liv.",
+        "organization": {
+          "id": 251,
+          "name": "Sannheten"
+        }
+      },
+      "schedulereason": null,
+      "starttime": "2026-11-13T11:00:00+01:00",
+      "endtime": "2026-11-13T11:49:35.100000+01:00",
+      "duration": "00:49:35.100000",
+      "grant": 52,
+      "isLive": false,
+      "liveSource": null
+    },
+    {
+      "id": 240742,
+      "defaultName": "",
+      "video": {
+        "id": 628693,
+        "name": "Israel - Guds folk - del 3",
+        "organization": {
+          "id": 296,
+          "name": "Agape Tromøy"
+        }
+      },
+      "schedulereason": null,
+      "starttime": "2026-11-13T17:00:00+01:00",
+      "endtime": "2026-11-13T17:27:45.642667+01:00",
+      "duration": "00:27:45.642667",
+      "grant": 94,
+      "isLive": false,
+      "liveSource": null
+    },
+    {
+      "id": 240743,
+      "defaultName": "",
+      "video": {
+        "id": 625510,
+        "name": "TED - Jeremy Heimans: What new power looks like",
+        "organization": {
+          "id": 82,
+          "name": "NUUG"
+        }
+      },
+      "schedulereason": null,
+      "starttime": "2026-11-13T17:30:00+01:00",
+      "endtime": "2026-11-13T17:45:12.340000+01:00",
+      "duration": "00:15:12.340000",
+      "grant": 103,
+      "isLive": false,
+      "liveSource": null
+    },
+    {
+      "id": 240744,
+      "defaultName": "",
+      "video": {
+        "id": 628671,
+        "name": "Bibelen 10...Elia og Elisja",
+        "organization": {
+          "id": 143,
+          "name": "Evangeliekirken Arendal"
+        }
+      },
+      "schedulereason": null,
+      "starttime": "2026-11-13T18:00:00+01:00",
+      "endtime": "2026-11-13T18:27:45.776327+01:00",
+      "duration": "00:27:45.776327",
+      "grant": 113,
+      "isLive": false,
+      "liveSource": null
+    },
+    {
+      "id": 240745,
+      "defaultName": "",
+      "video": {
+        "id": 628228,
+        "name": "(30) Jehovas Vitner (1) Vakttårnets ledere skal snart komme i Harmageddon sammen med Jesus for å dømme alle mennesker (2) Falske Doktriner (3-5) Jehovas Vitner i Ukraina og Russland (Parallell-Organisasjon)",
+        "organization": {
+          "id": 251,
+          "name": "Sannheten"
+        }
+      },
+      "schedulereason": null,
+      "starttime": "2026-11-13T19:00:00+01:00",
+      "endtime": "2026-11-13T19:38:47+01:00",
+      "duration": "00:38:47",
+      "grant": 133,
+      "isLive": false,
+      "liveSource": null
+    }
+  ]
+}

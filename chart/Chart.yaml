@@ -1,0 +1,5 @@
+apiVersion: v2
+name: infographics
+description: Frikanalen infographics template, with its pass-through to data sources
+type: application
+version: 0.1.0
