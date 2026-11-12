@@ -102,8 +102,9 @@ an account can be added the same way, with the secret kept on the server.
 
 ## On air
 
-`docker build .` gives an nginx image that serves the template and the
-`/met/` pass-through. Point a CasparCG HTML producer at it.
+`docker build .` gives an nginx image that serves the template and its
+pass-through under `/infographics/`. `chart/` deploys that image to a
+cluster. Point a CasparCG HTML producer at `https://<host>/infographics/`.
 
 To run without the image:
 

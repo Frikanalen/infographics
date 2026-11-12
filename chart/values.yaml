@@ -1,0 +1,30 @@
+# Two, on different nodes where possible, so draining a node for
+# maintenance never takes the last one down. The PDB below keeps a drain
+# from evicting both at once.
+replicaCount: 2
+
+podDisruptionBudget:
+  enabled: true
+  maxUnavailable: 1
+
+image:
+  repository: ghcr.io/frikanalen/infographics
+  tag: ""
+  pullPolicy: Always
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  className: traefik
+  hostname: beta.frikanalen.tv
+  # The image serves the template under /infographics/, so this path is
+  # not meant to be changed.
+  path: /infographics
+  # Traefik ACME resolver to name on the Ingress. Leave empty when Traefik
+  # serves a cert-manager certificate from its default TLSStore.
+  certResolver: ""
+
+resources: {}
