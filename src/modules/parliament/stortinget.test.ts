@@ -7,6 +7,11 @@ import {
   parseNotes,
   sessionId,
   parseItemText,
+  plainText,
+  resultOf,
+  summaryOf,
+  votesOn,
+  type RawVote,
   screens,
   itemHeight,
   shownIn,
@@ -135,6 +140,83 @@ describe("agenda lines", () => {
     for (const screen of split) expect(screen.reduce((sum, item) => sum + itemHeight(item), 0)).toBeLessThanOrEqual(440)
     expect(screens([{ number: 1, text: "Muntlig spørretime" }])).toHaveLength(1)
     expect(screens([])).toEqual([])
+  })
+})
+
+describe("how a matter went", () => {
+  // Real rows from 10 and 12 November 2026, without the fields that are not read.
+  const carried: RawVote = {
+    votering_id: 28622,
+    alternativ_votering_id: 28623,
+    mote_kart_nummer: 13,
+    dagsorden_sak_nummer: 2,
+    vedtatt: true,
+    antall_for: 71,
+    antall_mot: 29,
+    votering_resultat_type_tekst: null,
+  }
+  const mirror: RawVote = { ...carried, votering_id: 28623, alternativ_votering_id: 28622, vedtatt: false, antall_for: 29, antall_mot: 71 }
+  const unanimous: RawVote = {
+    votering_id: 28626,
+    alternativ_votering_id: -1,
+    mote_kart_nummer: 15,
+    dagsorden_sak_nummer: 1,
+    vedtatt: true,
+    antall_for: -1,
+    antall_mot: -1,
+    votering_resultat_type_tekst: "Enstemmig vedtatt",
+  }
+  const recommendation = {
+    forslag_betegnelse: "Komiteens tilråding ",
+    forslag_tekst:
+      "<div class='strtngt_vedtaks'>\r\n  <p class='strtngt_a type_innrykk'>\r\n    Dokument 8:275 S (2025–2026) – Representantforslag\nfra stortingsrepresentantene Erlend Wiborg, Rune Midtun, Helge André\nNjåstad og Bjørn Larsen om en tydelig og forpliktende integreringskontrakt\n– vedtas ikke.\r\n  </p>\r\n</div>",
+  }
+
+  it("keeps the votes of this meeting and item, and one row of an alternative vote", () => {
+    expect(votesOn([carried, mirror, unanimous], 13, 2)).toEqual([carried])
+    expect(votesOn([carried, mirror, unanimous], 15, 1)).toEqual([unanimous])
+    expect(votesOn([carried, mirror], 14, 2)).toEqual([])
+  })
+
+  it("reads the API's HTML as plain text", () => {
+    expect(plainText(recommendation.forslag_tekst)).toBe(
+      "Dokument 8:275 S (2025–2026) – Representantforslag fra stortingsrepresentantene Erlend Wiborg, Rune Midtun, Helge André Njåstad og Bjørn Larsen om en tydelig og forpliktende integreringskontrakt – vedtas ikke.",
+    )
+    expect(plainText(null)).toBe("")
+  })
+
+  it("says a proposal was turned down when the recommendation to do so carried", () => {
+    expect(resultOf(carried, recommendation)).toEqual({ line: "Ikke vedtatt, med 71 mot 29 stemmer" })
+  })
+
+  it("says what carried, in the Storting's words, otherwise", () => {
+    expect(
+      resultOf(carried, {
+        forslag_betegnelse: "Komiteens tilråding ",
+        forslag_tekst: "<p>Stortinget ber regjeringen legge fram en plan for fergefri kyststamvei.</p>",
+      }),
+    ).toEqual({
+      line: "Komiteens tilråding vedtatt med 71 mot 29 stemmer",
+      text: "Stortinget ber regjeringen legge fram en plan for fergefri kyststamvei.",
+    })
+    expect(resultOf(carried)).toEqual({ line: "Forslaget vedtatt med 71 mot 29 stemmer" })
+    expect(resultOf(carried, { forslag_betegnelse: "Komiteens tilråding", forslag_tekst: `<p>${"lov ".repeat(200)}</p>` })).toEqual({
+      line: "Komiteens tilråding vedtatt med 71 mot 29 stemmer",
+    })
+  })
+
+  it("reads a vote that was not counted, and one that fell", () => {
+    expect(resultOf(unanimous)).toEqual({ line: "Enstemmig vedtatt" })
+    expect(
+      resultOf(
+        { ...carried, alternativ_votering_id: -1, vedtatt: false, antall_for: 20, antall_mot: 80 },
+        { forslag_betegnelse: "Forslag nr. 3 fra Sosialistisk Venstreparti", forslag_tekst: "<p>…</p>" },
+      ),
+    ).toEqual({ line: "Forslag nr. 3 fra Sosialistisk Venstreparti fikk 20 mot 80 stemmer og ble ikke vedtatt" })
+  })
+
+  it("counts up many votes on one matter", () => {
+    expect(summaryOf([carried, carried, mirror, unanimous])).toEqual({ line: "4 voteringer: 3 vedtatt, 1 ikke vedtatt" })
   })
 })
 

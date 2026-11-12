@@ -18,11 +18,13 @@ export function exampleSittings(now: Date): Sittings {
           number: 2,
           text: "Representantforslag om en tydelig og forpliktende integreringskontrakt",
           from: "Innstilling fra kommunal- og forvaltningskomiteen, forslag fra Kari Nordmann, Ola Nordmann, Per Hansen og Anne Olsen",
+          results: [{ line: "Ikke vedtatt, med 71 mot 29 stemmer" }],
         },
         {
           number: 3,
           text: "Representantforslag om egenbetaling for tolketjenester etter tre års opphold i Norge",
           from: "Innstilling fra kommunal- og forvaltningskomiteen, forslag fra Kari Nordmann og Ola Nordmann",
+          results: [{ line: "Ikke vedtatt, med 69 mot 29 stemmer" }],
         },
         {
           number: 4,

@@ -49,6 +49,10 @@
   font-weight: 500;
   color: var(--muted);
 }
+.result {
+  font-size: var(--size-detail);
+  font-weight: 600;
+}
 .number {
   font-size: var(--size-number);
   font-weight: 700;
