@@ -13,8 +13,11 @@ export function exampleSittings(now: Date): Sittings {
       start: at(-1),
       notes: [],
       agenda: [
-        { number: 1, text: "Muntlig spørretime" },
-        { number: 2, text: "Ordinær spørretime" },
+        { number: 1, text: "Redegjørelse av kultur- og likestillingsministeren om mediepolitikk og ytringsfrihet" },
+        {
+          number: 2,
+          text: "Representantforslag om å be regjeringa greie ut alternativet «Ny framtid for Nationaltheatret» grundigare",
+        },
       ],
     },
     {

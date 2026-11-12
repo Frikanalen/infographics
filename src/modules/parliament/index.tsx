@@ -4,20 +4,23 @@ import type { InfoModule } from "../../engine/types"
 import { exampleSittings } from "./example"
 import { loadSittings, shownIn, type Sittings, type Slot } from "./stortinget"
 
-// Agenda lines are long, so each gets two lines, and four of them fit.
+// Agenda lines are long, so each gets at least two lines, and four of them fit.
 const ROWS = 4
 
 const dayFormat = new Intl.DateTimeFormat("nb-NO", { timeZone: "UTC", weekday: "long", day: "numeric", month: "long" })
 /** "torsdag 12. november" from "2026-11-12". */
 const dayText = (date: string) => dayFormat.format(new Date(`${date}T12:00:00Z`))
 
-const twoLines = {
-  display: "-webkit-box",
-  WebkitBoxOrient: "vertical",
-  WebkitLineClamp: 2,
-  overflow: "hidden",
-  lineHeight: 1.2,
-} as const
+/** Fewer items leave room for more of each: two lines each for four, up to four lines for one or two. */
+const linesFor = (rows: number) => (rows >= 4 ? 2 : rows === 3 ? 3 : 4)
+const clamped = (lines: number) =>
+  ({
+    display: "-webkit-box",
+    WebkitBoxOrient: "vertical",
+    WebkitLineClamp: lines,
+    overflow: "hidden",
+    lineHeight: 1.2,
+  }) as const
 
 function half(slot: Slot): InfoModule<Sittings> {
   return {
@@ -64,9 +67,9 @@ function half(slot: Slot): InfoModule<Sittings> {
           {meeting}
           <Rows>
             {shown.map((item, i) => (
-              <Row key={item.number} index={i} size="tall" columns="44px minmax(0, 1fr)" gap={12}>
+              <Row key={item.number} index={i} size="roomy" columns="44px minmax(0, 1fr)" gap={12}>
                 <Detail>{item.number}</Detail>
-                <span style={twoLines}>{item.text}</span>
+                <span style={clamped(linesFor(shown.length))}>{item.text}</span>
               </Row>
             ))}
           </Rows>

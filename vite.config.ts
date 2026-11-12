@@ -24,6 +24,7 @@ const proxy = {
     target: "https://data.stortinget.no",
     changeOrigin: true,
     rewrite: (path: string) => path.replace(/^\/stortinget/, "/eksport"),
+    headers: { "User-Agent": "frikanalen-infographics/0.1 github.com/Frikanalen/infographics" },
   },
 }
 
