@@ -69,7 +69,10 @@ export function parseNotes(merknad: string | null): string[] {
  * there is room for what it is about.
  */
 export function shortTitle(text: string): string {
+  // Lines after the first are remarks, such as "(Redegjørelsen holdt i
+  // Stortingets møte 10. november 2026)" or "(Det vil bli foreslått debatt …)".
   const short = text
+    .split(/\r?\n/)[0]
     .replace(/\s+/g, " ")
     .trim()
     .replace(/^Innstilling(er)? fr[aå] .*?komit[eé]en om /i, "")
