@@ -19,6 +19,12 @@ const proxy = {
     changeOrigin: true,
     rewrite: (path: string) => path.replace(/^\/statnett/, "/restapi"),
   },
+  // The Storting's open data, the same way, so its answers can be cached.
+  "/stortinget": {
+    target: "https://data.stortinget.no",
+    changeOrigin: true,
+    rewrite: (path: string) => path.replace(/^\/stortinget/, "/eksport"),
+  },
 }
 
 // Relative base, so the built template works from any folder or URL that
