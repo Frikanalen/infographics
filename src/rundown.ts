@@ -10,12 +10,20 @@ import { avalancheModule } from "./modules/avalanche"
 import { daylightModule } from "./modules/daylight"
 import { electricityModule } from "./modules/electricity"
 import { passMapModule, passRowsModule } from "./modules/passes"
+import { scheduleModule } from "./modules/schedule"
 import { dayChangeModule, solsticeModule } from "./modules/solstice"
 import { warningMapModule, warningRowsModule } from "./modules/warnings"
 import { trainsModule } from "./modules/trains"
 import { weatherMapModule, weatherRowsModule } from "./modules/weather"
 
 export const rundown: Page[] = [
+  {
+    id: "frikanalen",
+    title: "På Frikanalen",
+    subtitle: "senere i dag",
+    seconds: 30,
+    modules: [{ module: scheduleModule, columns: 12 }],
+  },
   {
     id: "dagslys",
     title: "Dagslys",
