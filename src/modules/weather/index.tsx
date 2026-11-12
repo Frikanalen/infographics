@@ -3,19 +3,13 @@ import { CountryMap } from "../../blocks/CountryMap"
 import type { InfoModule } from "../../engine/types"
 import { places } from "../../places"
 import example from "./example.json"
-
-interface Reading {
-  place: keyof typeof places
-  sky: string
-  wind: number
-  temperature: number
-}
+import { loadWeather, type Reading } from "./met"
 
 const degrees = (t: number) => `${t < 0 ? "−" : ""}${Math.abs(t)}°`
 
-// No `load` yet: MET Norway asks to be called from a server that identifies
-// itself, so these two modules wait for the data service and only appear in
-// demo mode until then.
+// Eight places from north to south. Change the list here.
+const shown: Reading["place"][] = ["vadso", "tromso", "bodo", "trondheim", "alesund", "bergen", "oslo", "kristiansand"]
+const load = () => loadWeather(shown)
 
 /** The weather now as rows, north to south. */
 export const weatherRowsModule: InfoModule<Reading[]> = {
@@ -23,6 +17,7 @@ export const weatherRowsModule: InfoModule<Reading[]> = {
   source: "MET Norge",
   refreshMinutes: 10,
   maxAgeMinutes: 90,
+  load,
   example: example as Reading[],
   View: ({ data }) => (
     <Rows>
@@ -44,6 +39,7 @@ export const weatherMapModule: InfoModule<Reading[]> = {
   source: "MET Norge",
   refreshMinutes: 10,
   maxAgeMinutes: 90,
+  load,
   example: example as Reading[],
   View: ({ data }) => (
     <CountryMap

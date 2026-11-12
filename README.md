@@ -88,10 +88,26 @@ under the SIL Open Font License.
 |---|---|
 | Daylight, solstice, day change | computed in the template |
 | Electricity | hvakosterstrommen.no, fetched by the template |
-| Weather, mountain passes | example only, waiting for a data service |
+| Weather | MET Norway, through this template's own server (see below) |
+| Mountain passes | example only for now |
+
+## Data sources that need a server
+
+A browser will not let a page choose its own User-Agent, and some sources
+(MET Norway) require one that says who is calling. So the template asks its
+own server for `/met/...`, and the server passes the request on with the
+right header and caches the answer. `nginx.conf` does this on air and
+`vite.config.ts` does the same in development. A source that needs a key or
+an account can be added the same way, with the secret kept on the server.
 
 ## On air
 
+`docker build .` gives an nginx image that serves the template and the
+`/met/` pass-through. Point a CasparCG HTML producer at it.
+
+To run without the image:
+
 `npm run build` writes the template to `dist/`. Point a CasparCG HTML
-producer at `dist/index.html`, or at wherever `dist/` is served. The template
+producer at `dist/index.html`, or at wherever `dist/` is served. Opened as a
+plain file, modules that need the server (weather) leave the rotation. The template
 is 1280×720, starts by itself, and answers to `play()`, `stop()` and `next()`.
