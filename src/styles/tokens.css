@@ -1,0 +1,34 @@
+/*
+ * The design language in one place. Modules and blocks use these and nothing
+ * else: a new colour or type size is a change to the language, so make it here.
+ *
+ * Every hue has one job. Amber is time. Coral is stop. Green is go. Plum is
+ * what the machine did (the source and its age). Data is drawn in the neutral
+ * foreground, so a colour on screen always means something.
+ */
+:root {
+  --stage: #15181b;
+  --stage-land: #242a2f;
+  --line: #2c3136;
+  --dim: #5a5f63;
+  --muted: #a9a49a;
+  --fg: #f4f1ea;
+
+  --time: #faaa3f;
+  --stop: #f15645;
+  --go: #64bc50;
+  --machine: #ae5677;
+
+  /* Nothing on air is smaller than 22px at 720p, or lighter than weight 500. */
+  --size-label: 22px;
+  --size-detail: 24px;
+  --size-text: 30px;
+  --size-number: 42px;
+  --size-title: 46px;
+  --size-hero: 128px;
+
+  /* A hairline on television is 2px, so it survives scaling and compression. */
+  --hairline: 2px solid var(--line);
+  --margin: 64px;
+  --gutter: 24px;
+}

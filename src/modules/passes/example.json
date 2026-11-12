@@ -1,0 +1,10 @@
+[
+  { "road": "E6", "name": "Sennalandet", "lat": 70.25, "lon": 23.9, "state": "open" },
+  { "road": "E10", "name": "Bjørnfjell", "lat": 68.43, "lon": 18.1, "state": "caution" },
+  { "road": "E6", "name": "Saltfjellet", "lat": 66.55, "lon": 15.32, "state": "closed" },
+  { "road": "E6", "name": "Dovrefjell", "lat": 62.22, "lon": 9.55, "state": "open" },
+  { "road": "Rv15", "name": "Strynefjellet", "lat": 61.98, "lon": 7.4, "state": "open" },
+  { "road": "E16", "name": "Filefjell", "lat": 61.17, "lon": 8.1, "state": "open" },
+  { "road": "Rv7", "name": "Hardangervidda", "lat": 60.4, "lon": 7.6, "state": "caution" },
+  { "road": "E134", "name": "Haukelifjell", "lat": 59.82, "lon": 7.2, "state": "open" }
+]

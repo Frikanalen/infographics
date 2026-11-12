@@ -1,0 +1,10 @@
+[
+  { "place": "vadso", "sky": "Snø", "wind": 8, "temperature": -9 },
+  { "place": "tromso", "sky": "Snøbyger", "wind": 6, "temperature": -4 },
+  { "place": "bodo", "sky": "Lettskyet", "wind": 11, "temperature": -1 },
+  { "place": "trondheim", "sky": "Sludd", "wind": 5, "temperature": 2 },
+  { "place": "alesund", "sky": "Regn", "wind": 12, "temperature": 6 },
+  { "place": "bergen", "sky": "Regn", "wind": 9, "temperature": 7 },
+  { "place": "oslo", "sky": "Skyet", "wind": 2, "temperature": 3 },
+  { "place": "kristiansand", "sky": "Regnbyger", "wind": 7, "temperature": 8 }
+]

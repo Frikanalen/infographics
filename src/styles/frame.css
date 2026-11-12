@@ -1,0 +1,165 @@
+html,
+body {
+  margin: 0;
+  height: 100%;
+  background: transparent;
+  overflow: hidden;
+}
+
+/* The frame is authored in real pixels at 1280x720 and scaled to the window. */
+.frame {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1280px;
+  height: 720px;
+  transform-origin: 0 0;
+  overflow: hidden;
+  background: var(--stage);
+  color: var(--fg);
+  font-family: "Schibsted Grotesk Variable", system-ui, sans-serif;
+  line-height: 1.15;
+  transition: opacity 500ms linear;
+}
+.frame.off {
+  opacity: 0;
+}
+
+.stripe {
+  display: flex;
+  height: 6px;
+}
+.stripe i {
+  flex: 1;
+}
+.stripe i:nth-child(1) {
+  background: var(--stop);
+}
+.stripe i:nth-child(2) {
+  background: var(--time);
+}
+.stripe i:nth-child(3) {
+  background: var(--go);
+}
+
+.head {
+  position: absolute;
+  left: var(--margin);
+  right: var(--margin);
+  top: 28px;
+  height: 76px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  border-bottom: var(--hairline);
+}
+.head .title {
+  font-size: var(--size-title);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+.head .subtitle {
+  font-size: var(--size-detail);
+  font-weight: 500;
+  color: var(--muted);
+  margin-left: 20px;
+}
+.head .date {
+  font-size: var(--size-label);
+  color: var(--muted);
+  margin-right: 18px;
+}
+.head .clock {
+  font-size: var(--size-title);
+  font-weight: 600;
+  color: var(--time);
+}
+.head > div {
+  white-space: nowrap;
+}
+.head .words,
+.surface {
+  transition: opacity 300ms linear;
+}
+.leaving .head .words,
+.leaving .surface {
+  opacity: 0;
+}
+
+/* The surface: twelve columns that modules are placed on. */
+.surface {
+  position: absolute;
+  left: var(--margin);
+  right: var(--margin);
+  top: 118px;
+  height: 518px;
+  display: grid;
+  gap: calc(var(--gutter) * 2);
+}
+.column {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.module {
+  animation: arrive 300ms linear both;
+}
+/* Modules stacked in one column are parted by a hairline. */
+.module + .module {
+  border-top: var(--hairline);
+  margin-top: 22px;
+  padding-top: 14px;
+}
+@keyframes arrive {
+  from {
+    opacity: 0;
+  }
+}
+
+.foot {
+  position: absolute;
+  left: var(--margin);
+  right: var(--margin);
+  bottom: 22px;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--size-label);
+  color: var(--muted);
+  border-top: var(--hairline);
+}
+.foot .source::before {
+  content: "";
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin-right: 12px;
+  background: var(--machine);
+}
+.foot b {
+  color: var(--fg);
+  font-weight: 600;
+}
+.foot .demo {
+  color: var(--fg);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  margin-right: 24px;
+}
+/* The rule above the footer fills in amber as the page's time runs out. */
+.foot .progress {
+  position: absolute;
+  left: 0;
+  top: -2px;
+  height: 2px;
+  width: 100%;
+  background: var(--time);
+  transform-origin: 0 0;
+  animation: progress linear both;
+}
+@keyframes progress {
+  from {
+    transform: scaleX(0);
+  }
+}
