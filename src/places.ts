@@ -5,6 +5,7 @@
 // block lets them take turns. Names are checked against Kartverket's place-name
 // register (https://ws.geonorge.no/stedsnavn/v1/sted?sok=...): only spellings
 // with status "vedtatt" or "godkjent" go here, never "foreslått".
+// Order: Sami first, then Norwegian, then Kven. All places change in step.
 export interface Place {
   names: string | string[]
   lat: number

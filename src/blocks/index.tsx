@@ -63,13 +63,23 @@ export const RowNumber = ({ children, unit, large }: { children: ReactNode; unit
 )
 
 /**
- * A place name. Give several official names, for example
- * ["Kárášjohka", "Karasjok"], and they take turns in the same space.
+ * Which of a place's names to show in a given turn. Every place on screen
+ * changes in step: all show their first name (Sami where there is one), then
+ * all their Norwegian name, then a third name where one exists while the
+ * others stay Norwegian. So a frame never mixes languages row by row.
+ */
+export function nameInTurn(count: number, turn: number): number {
+  return Math.min(turn % 3, count - 1)
+}
+
+/**
+ * A place name. Give several official names, in the order of places.ts,
+ * for example ["Kárášjohka", "Karasjok"], and they take turns in the same space.
  */
 export function PlaceName({ names }: { names: string | string[] }) {
   const list = typeof names === "string" ? [names] : names
   const now = useNow(6000)
-  const shown = Math.floor(now.getTime() / 6000) % list.length
+  const shown = nameInTurn(list.length, Math.floor(now.getTime() / 6000))
   return (
     <span className="place">
       {list.map((name, i) => (
