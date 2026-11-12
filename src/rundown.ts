@@ -12,6 +12,7 @@ import { electricityModule } from "./modules/electricity"
 import { passMapModule, passRowsModule } from "./modules/passes"
 import { dayChangeModule, solsticeModule } from "./modules/solstice"
 import { warningMapModule, warningRowsModule } from "./modules/warnings"
+import { trainsModule } from "./modules/trains"
 import { weatherMapModule, weatherRowsModule } from "./modules/weather"
 
 export const rundown: Page[] = [
@@ -51,6 +52,13 @@ export const rundown: Page[] = [
     subtitle: "i fjellet, i dag og i morgen",
     seconds: 40,
     modules: [{ module: avalancheModule, columns: 12 }],
+  },
+  {
+    id: "tog",
+    title: "Togene",
+    subtitle: "neste avgang fra stasjoner over hele landet",
+    seconds: 40,
+    modules: [{ module: trainsModule, columns: 12 }],
   },
   {
     id: "strom",

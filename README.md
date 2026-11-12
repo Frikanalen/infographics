@@ -92,6 +92,7 @@ under the SIL Open Font License.
 | Electricity | hvakosterstrommen.no, fetched by the template |
 | Weather | MET Norway, through this template's own server (see below) |
 | Danger warnings | MET Norway's MetAlerts, the same way; land and coast only |
+| Trains | Entur's journey planner, fetched by the template |
 | Avalanche danger | NVE (Varsom), fetched by the template; leaves the rotation out of season |
 | Mountain passes | example only for now |
 

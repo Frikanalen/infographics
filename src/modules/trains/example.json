@@ -1,0 +1,364 @@
+{
+  "data": {
+    "stopPlaces": [
+      {
+        "id": "NSR:StopPlace:58234",
+        "estimatedCalls": []
+      },
+      {
+        "id": "NSR:StopPlace:62318",
+        "estimatedCalls": []
+      },
+      {
+        "id": "NSR:StopPlace:58952",
+        "estimatedCalls": [
+          {
+            "aimedDepartureTime": "2026-11-12T17:46:00+01:00",
+            "expectedDepartureTime": "2026-11-12T17:46:00+01:00",
+            "realtime": false,
+            "cancellation": false,
+            "destinationDisplay": {
+              "frontText": "Mosjøen"
+            },
+            "serviceJourney": {
+              "transportSubmode": "regionalRail",
+              "line": {
+                "publicCode": "F7"
+              }
+            }
+          },
+          {
+            "aimedDepartureTime": "2026-11-12T19:36:00+01:00",
+            "expectedDepartureTime": "2026-11-12T19:36:00+01:00",
+            "realtime": false,
+            "cancellation": false,
+            "destinationDisplay": {
+              "frontText": "Rognan"
+            },
+            "serviceJourney": {
+              "transportSubmode": "local",
+              "line": {
+                "publicCode": "R75"
+              }
+            }
+          },
+          {
+            "aimedDepartureTime": "2026-11-13T07:36:00+01:00",
+            "expectedDepartureTime": "2026-11-13T07:36:00+01:00",
+            "realtime": false,
+            "cancellation": false,
+            "destinationDisplay": {
+              "frontText": "Mosjøen"
+            },
+            "serviceJourney": {
+              "transportSubmode": "regionalRail",
+              "line": {
+                "publicCode": "F7"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "id": "NSR:StopPlace:59977",
+        "estimatedCalls": [
+          {
+            "aimedDepartureTime": "2026-11-12T15:44:00+01:00",
+            "expectedDepartureTime": "2026-11-12T16:16:25+01:00",
+            "realtime": true,
+            "cancellation": false,
+            "destinationDisplay": {
+              "frontText": "Ler"
+            },
+            "serviceJourney": {
+              "transportSubmode": "local",
+              "line": {
+                "publicCode": "R70"
+              }
+            }
+          },
+          {
+            "aimedDepartureTime": "2026-11-12T16:16:00+01:00",
+            "expectedDepartureTime": "2026-11-12T16:17:57+01:00",
+            "realtime": true,
+            "cancellation": false,
+            "destinationDisplay": {
+              "frontText": "Steinkjer"
+            },
+            "serviceJourney": {
+              "transportSubmode": "local",
+              "line": {
+                "publicCode": "R70"
+              }
+            }
+          },
+          {
+            "aimedDepartureTime": "2026-11-12T23:17:00+01:00",
+            "expectedDepartureTime": "2026-11-12T23:17:00+01:00",
+            "realtime": true,
+            "cancellation": false,
+            "destinationDisplay": {
+              "frontText": "Oslo S"
+            },
+            "serviceJourney": {
+              "transportSubmode": "nightRail",
+              "line": {
+                "publicCode": "F6"
+              }
+            }
+          },
+          {
+            "aimedDepartureTime": "2026-11-13T05:37:00+01:00",
+            "expectedDepartureTime": "2026-11-13T05:37:00+01:00",
+            "realtime": true,
+            "cancellation": false,
+            "destinationDisplay": {
+              "frontText": "Hamar"
+            },
+            "serviceJourney": {
+              "transportSubmode": "regionalRail",
+              "line": {
+                "publicCode": "R60"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "id": "NSR:StopPlace:59703",
+        "estimatedCalls": [
+          {
+            "aimedDepartureTime": "2026-11-12T16:29:00+01:00",
+            "expectedDepartureTime": "2026-11-12T16:29:00+01:00",
+            "realtime": false,
+            "cancellation": false,
+            "destinationDisplay": {
+              "frontText": "Dombås"
+            },
+            "serviceJourney": {
+              "transportSubmode": "regionalRail",
+              "line": {
+                "publicCode": "R65"
+              }
+            }
+          },
+          {
+            "aimedDepartureTime": "2026-11-13T07:18:00+01:00",
+            "expectedDepartureTime": "2026-11-13T07:18:00+01:00",
+            "realtime": true,
+            "cancellation": false,
+            "destinationDisplay": {
+              "frontText": "Dombås"
+            },
+            "serviceJourney": {
+              "transportSubmode": "regionalRail",
+              "line": {
+                "publicCode": "R65"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "id": "NSR:StopPlace:59983",
+        "estimatedCalls": [
+          {
+            "aimedDepartureTime": "2026-11-12T16:19:00+01:00",
+            "expectedDepartureTime": "2026-11-12T16:19:00+01:00",
+            "realtime": true,
+            "cancellation": false,
+            "destinationDisplay": {
+              "frontText": "Myrdal"
+            },
+            "serviceJourney": {
+              "transportSubmode": "longDistance",
+              "line": {
+                "publicCode": "R40"
+              }
+            }
+          },
+          {
+            "aimedDepartureTime": "2026-11-12T16:27:00+01:00",
+            "expectedDepartureTime": "2026-11-12T16:27:00+01:00",
+            "realtime": true,
+            "cancellation": false,
+            "destinationDisplay": {
+              "frontText": "Arna"
+            },
+            "serviceJourney": {
+              "transportSubmode": "local",
+              "line": {
+                "publicCode": "L4"
+              }
+            }
+          },
+          {
+            "aimedDepartureTime": "2026-11-12T16:48:00+01:00",
+            "expectedDepartureTime": "2026-11-12T16:48:00+01:00",
+            "realtime": true,
+            "cancellation": false,
+            "destinationDisplay": {
+              "frontText": "Oslo S"
+            },
+            "serviceJourney": {
+              "transportSubmode": "regionalRail",
+              "line": {
+                "publicCode": "F4"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "id": "NSR:StopPlace:59872",
+        "estimatedCalls": [
+          {
+            "aimedDepartureTime": "2026-11-12T16:11:00+01:00",
+            "expectedDepartureTime": "2026-11-12T16:13:46+01:00",
+            "realtime": true,
+            "cancellation": false,
+            "destinationDisplay": {
+              "frontText": "Lillestrøm"
+            },
+            "serviceJourney": {
+              "transportSubmode": "local",
+              "line": {
+                "publicCode": "L1"
+              }
+            }
+          },
+          {
+            "aimedDepartureTime": "2026-11-12T16:15:00+01:00",
+            "expectedDepartureTime": "2026-11-12T16:15:00+01:00",
+            "realtime": true,
+            "cancellation": false,
+            "destinationDisplay": {
+              "frontText": "Halden"
+            },
+            "serviceJourney": {
+              "transportSubmode": "longDistance",
+              "line": {
+                "publicCode": "RE20"
+              }
+            }
+          },
+          {
+            "aimedDepartureTime": "2026-11-12T16:23:00+01:00",
+            "expectedDepartureTime": "2026-11-12T16:23:00+01:00",
+            "realtime": true,
+            "cancellation": false,
+            "destinationDisplay": {
+              "frontText": "Bergen"
+            },
+            "serviceJourney": {
+              "transportSubmode": "regionalRail",
+              "line": {
+                "publicCode": "F4"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "id": "NSR:StopPlace:61291",
+        "estimatedCalls": [
+          {
+            "aimedDepartureTime": "2026-11-12T16:23:00+01:00",
+            "expectedDepartureTime": "2026-11-12T16:23:00+01:00",
+            "realtime": false,
+            "cancellation": false,
+            "destinationDisplay": {
+              "frontText": "Egersund"
+            },
+            "serviceJourney": {
+              "transportSubmode": "local",
+              "line": {
+                "publicCode": "L5"
+              }
+            }
+          },
+          {
+            "aimedDepartureTime": "2026-11-12T16:39:00+01:00",
+            "expectedDepartureTime": "2026-11-12T16:39:00+01:00",
+            "realtime": false,
+            "cancellation": false,
+            "destinationDisplay": {
+              "frontText": "Skeiane"
+            },
+            "serviceJourney": {
+              "transportSubmode": "local",
+              "line": {
+                "publicCode": "L5"
+              }
+            }
+          },
+          {
+            "aimedDepartureTime": "2026-11-12T19:36:00+01:00",
+            "expectedDepartureTime": "2026-11-12T19:36:00+01:00",
+            "realtime": false,
+            "cancellation": false,
+            "destinationDisplay": {
+              "frontText": "Kristiansand"
+            },
+            "serviceJourney": {
+              "transportSubmode": "regionalRail",
+              "line": {
+                "publicCode": "F5"
+              }
+            }
+          },
+          {
+            "aimedDepartureTime": "2026-11-12T22:15:00+01:00",
+            "expectedDepartureTime": "2026-11-12T22:15:00+01:00",
+            "realtime": false,
+            "cancellation": false,
+            "destinationDisplay": {
+              "frontText": "Oslo S"
+            },
+            "serviceJourney": {
+              "transportSubmode": "nightRail",
+              "line": {
+                "publicCode": "F5"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "id": "NSR:StopPlace:61608",
+        "estimatedCalls": [
+          {
+            "aimedDepartureTime": "2026-11-12T16:06:00+01:00",
+            "expectedDepartureTime": "2026-11-12T17:15:32+01:00",
+            "realtime": true,
+            "cancellation": false,
+            "destinationDisplay": {
+              "frontText": "Stavanger"
+            },
+            "serviceJourney": {
+              "transportSubmode": "regionalRail",
+              "line": {
+                "publicCode": "F5"
+              }
+            }
+          },
+          {
+            "aimedDepartureTime": "2026-11-12T18:01:00+01:00",
+            "expectedDepartureTime": "2026-11-12T19:07:55+01:00",
+            "realtime": true,
+            "cancellation": false,
+            "destinationDisplay": {
+              "frontText": "Stavanger"
+            },
+            "serviceJourney": {
+              "transportSubmode": "regionalRail",
+              "line": {
+                "publicCode": "F5"
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
