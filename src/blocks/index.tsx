@@ -115,6 +115,39 @@ export function Status({ state, children }: { state: State; children: ReactNode 
   )
 }
 
+/** A main line and a detail line under it, in one cell. The detail stops after two lines. */
+export const TwoLines = ({ main, detail }: { main: ReactNode; detail: ReactNode }) => (
+  <span className="two-lines">
+    <span>{main}</span>
+    <span className="detail">{detail}</span>
+  </span>
+)
+
+/**
+ * A warning level: three steps, as many filled as the level, and the word.
+ * Count and word carry the meaning, so yellow and orange need no colour of
+ * their own; only the highest level is drawn in the stop colour.
+ */
+export function LevelMark({ level, children }: { level: 1 | 2 | 3; children: ReactNode }) {
+  return (
+    <span className={`status level-${level}`}>
+      <svg viewBox="-1 -1 35 26" className="steps">
+        {[0, 1, 2].map((step) => (
+          <rect
+            key={step}
+            className={step < level ? "on" : undefined}
+            x={step * 12}
+            y={16 - step * 8}
+            width="9"
+            height={8 + step * 8}
+          />
+        ))}
+      </svg>
+      {children}
+    </span>
+  )
+}
+
 /** One bar per hour, all on the scale 0 to `max`. The current hour is amber. */
 export function HourBars({ values, max, current }: { values: number[]; max: number; current: number }) {
   return (

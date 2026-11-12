@@ -6,10 +6,12 @@
 // A module that has nothing true to show leaves the page, and a page with no
 // modules left is skipped.
 import type { Page } from "./engine/types"
+import { avalancheModule } from "./modules/avalanche"
 import { daylightModule } from "./modules/daylight"
 import { electricityModule } from "./modules/electricity"
 import { passMapModule, passRowsModule } from "./modules/passes"
 import { dayChangeModule, solsticeModule } from "./modules/solstice"
+import { warningMapModule, warningRowsModule } from "./modules/warnings"
 import { weatherMapModule, weatherRowsModule } from "./modules/weather"
 
 export const rundown: Page[] = [
@@ -32,6 +34,23 @@ export const rundown: Page[] = [
       { module: weatherMapModule, columns: 4 },
       { module: weatherRowsModule, columns: 8 },
     ],
+  },
+  {
+    id: "farevarsler",
+    title: "Farevarsler",
+    subtitle: "fra MET, for land og kyst",
+    seconds: 45,
+    modules: [
+      { module: warningMapModule, columns: 4 },
+      { module: warningRowsModule, columns: 8 },
+    ],
+  },
+  {
+    id: "snoskred",
+    title: "Snøskredfare",
+    subtitle: "i fjellet, i dag og i morgen",
+    seconds: 40,
+    modules: [{ module: avalancheModule, columns: 12 }],
   },
   {
     id: "strom",

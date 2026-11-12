@@ -1,0 +1,210 @@
+[
+  {
+    "Id": 3003,
+    "Name": "Nordenskiöld Land",
+    "AvalancheWarningList": [
+      {
+        "DangerLevel": "2",
+        "ValidFrom": "2026-03-10T00:00:00",
+        "MainText": "Det finnes svake lag i snødekket som kan påvirkes av en skiløper eller skuter der snødekket er tynt. Fjernutløsning av skred er mulig."
+      },
+      {
+        "DangerLevel": "2",
+        "ValidFrom": "2026-03-11T00:00:00",
+        "MainText": "Lokalt ustabile forhold. Vær forsiktig i leområder med fersk fokksnø. Det finst også områder med vedvarende svake lag som kan påverkast av skuter eller skiløpar der snødekket er tynt. "
+      }
+    ]
+  },
+  {
+    "Id": 3008,
+    "Name": "Finnmarksvidda",
+    "AvalancheWarningList": [
+      {
+        "DangerLevel": "0",
+        "ValidFrom": "2026-03-10T00:00:00",
+        "MainText": "Ikke vurdert"
+      },
+      {
+        "DangerLevel": "0",
+        "ValidFrom": "2026-03-11T00:00:00",
+        "MainText": "Ikke vurdert"
+      }
+    ]
+  },
+  {
+    "Id": 3013,
+    "Name": "Indre Troms",
+    "AvalancheWarningList": [
+      {
+        "DangerLevel": "3",
+        "ValidFrom": "2026-03-10T00:00:00",
+        "MainText": "Over ca. 500 moh kan det vere lett å løyse ut skred på vedvarande svake lag og i fersk fokksnø. Skred kan fjernutløysast og bli store. "
+      },
+      {
+        "DangerLevel": "3",
+        "ValidFrom": "2026-03-11T00:00:00",
+        "MainText": "I høyden kan det være lett å løse ut skred på vedvarende svake lag og i fersk fokksnø. Skred kan fjernutløses og bli store."
+      }
+    ]
+  },
+  {
+    "Id": 3014,
+    "Name": "Lofoten og Vesterålen",
+    "AvalancheWarningList": [
+      {
+        "DangerLevel": "2",
+        "ValidFrom": "2026-03-10T00:00:00",
+        "MainText": "Lokalt ustabile forhold. Vær forsiktig i leområder med fersk fokksnø. "
+      },
+      {
+        "DangerLevel": "1",
+        "ValidFrom": "2026-03-11T00:00:00",
+        "MainText": "Generelt stabile forhold. Vær likevel forsiktig i leområder med fersk fokksnø. "
+      }
+    ]
+  },
+  {
+    "Id": 3015,
+    "Name": "Ofoten",
+    "AvalancheWarningList": [
+      {
+        "DangerLevel": "3",
+        "ValidFrom": "2026-03-10T00:00:00",
+        "MainText": "Krevende forhold. I tillegg til ustabile fokksnøflak finnes det vedvarende svake lag i snødekket."
+      },
+      {
+        "DangerLevel": "3",
+        "ValidFrom": "2026-03-11T00:00:00",
+        "MainText": "I høyden kan det være lett å løse ut skred på vedvarende svake lag og i fersk fokksnø. Skred kan fjernutløses og bli store."
+      }
+    ]
+  },
+  {
+    "Id": 3016,
+    "Name": "Salten",
+    "AvalancheWarningList": [
+      {
+        "DangerLevel": "3",
+        "ValidFrom": "2026-03-10T00:00:00",
+        "MainText": "Krevende forhold. I tillegg til ustabile fokksnøflak finnes det vedvarende svake lag i snødekket."
+      },
+      {
+        "DangerLevel": "3",
+        "ValidFrom": "2026-03-11T00:00:00",
+        "MainText": "I høyden kan det være lett å løse ut skred på vedvarende svake lag og i fersk fokksnø. Skred kan fjernutløses og bli store."
+      }
+    ]
+  },
+  {
+    "Id": 3017,
+    "Name": "Svartisen",
+    "AvalancheWarningList": [
+      {
+        "DangerLevel": "3",
+        "ValidFrom": "2026-03-10T00:00:00",
+        "MainText": "Tørre og våte snøskred vil løsne av seg selv på grunn av mildvær og et svakt snødekke. Unngå skredterreng."
+      },
+      {
+        "DangerLevel": "3",
+        "ValidFrom": "2026-03-11T00:00:00",
+        "MainText": "I høyden kan det være lett å løse ut skred på vedvarende svake lag og i fersk fokksnø. Skred kan fjernutløses og bli store."
+      }
+    ]
+  },
+  {
+    "Id": 3022,
+    "Name": "Trollheimen",
+    "AvalancheWarningList": [
+      {
+        "DangerLevel": "2",
+        "ValidFrom": "2026-03-10T00:00:00",
+        "MainText": "Ver varsom i bratte heng med mjuk våt snø. Det finst svake lag av kantkorn i høgda, men dei er truleg vanskeleg å påvirke."
+      },
+      {
+        "DangerLevel": "1",
+        "ValidFrom": "2026-03-11T00:00:00",
+        "MainText": "Generelt stabile forhold. Vær merksam i svært bratt terreng i høgda, det finnes svake lag av kantkorn."
+      }
+    ]
+  },
+  {
+    "Id": 3028,
+    "Name": "Jotunheimen",
+    "AvalancheWarningList": [
+      {
+        "DangerLevel": "3",
+        "ValidFrom": "2026-03-10T00:00:00",
+        "MainText": "Krevende forhold. Ferdsel i bratt terreng krever erfaring og kunnskap. I tillegg til ustabile fokksnøflak i høyden finnes det vedvarende svake lag under fokksnøen."
+      },
+      {
+        "DangerLevel": "3",
+        "ValidFrom": "2026-03-11T00:00:00",
+        "MainText": "Krevende forhold. Ferdsel i bratt terreng krever erfaring og kunnskap. I tillegg til ustabile fokksnøflak i høyden finnes det vedvarende svake lag under fokksnøen."
+      }
+    ]
+  },
+  {
+    "Id": 3029,
+    "Name": "Indre Sogn",
+    "AvalancheWarningList": [
+      {
+        "DangerLevel": "2",
+        "ValidFrom": "2026-03-10T00:00:00",
+        "MainText": "Unngå skredterreng om du hører drønnelyder eller ser at det sprekker opp i snødekket. Dette er tegn på at du påvirker vedvarende svakt lag. Vær spesielt forsiktig i områder med fersk fokksnø."
+      },
+      {
+        "DangerLevel": "2",
+        "ValidFrom": "2026-03-11T00:00:00",
+        "MainText": "Unngå skredterreng om du hører drønnelyder eller ser at det sprekker opp i snødekket. Dette er tegn på at du påvirker vedvarende svakt lag. Vær spesielt forsiktig i områder med fersk fokksnø."
+      }
+    ]
+  },
+  {
+    "Id": 3031,
+    "Name": "Voss",
+    "AvalancheWarningList": [
+      {
+        "DangerLevel": "2",
+        "ValidFrom": "2026-03-10T00:00:00",
+        "MainText": "I høgda er det svake lag av kantkorn i snødekket. Vær spesielt forsiktig i områder med fersk fokksnø."
+      },
+      {
+        "DangerLevel": "2",
+        "ValidFrom": "2026-03-11T00:00:00",
+        "MainText": "I høgda er det svake lag av kantkorn i snødekket. Vær spesielt forsiktig i områder med fersk fokksnø. Her kan skredproblema forsterke kvarandre."
+      }
+    ]
+  },
+  {
+    "Id": 3037,
+    "Name": "Heiane",
+    "AvalancheWarningList": [
+      {
+        "DangerLevel": "1",
+        "ValidFrom": "2026-03-10T00:00:00",
+        "MainText": "Generelt stabile forhold, men vær likevel varsom i bratt terreng der det er mjuke fokksnøflak."
+      },
+      {
+        "DangerLevel": "2",
+        "ValidFrom": "2026-03-11T00:00:00",
+        "MainText": "Vær varsom i terreng med ferske fokksnøflak og i bratte sider med våt snø."
+      }
+    ]
+  },
+  {
+    "Id": 3045,
+    "Name": "Oslo",
+    "AvalancheWarningList": [
+      {
+        "DangerLevel": "0",
+        "ValidFrom": "2026-03-10T00:00:00",
+        "MainText": "Ikke vurdert"
+      },
+      {
+        "DangerLevel": "0",
+        "ValidFrom": "2026-03-11T00:00:00",
+        "MainText": "Ikke vurdert"
+      }
+    ]
+  }
+]

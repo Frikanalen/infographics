@@ -143,6 +143,62 @@
   fill: var(--fg);
 }
 
+/* Areas on the map, such as warning areas. Stronger levels are shaded more
+   strongly; only the highest uses a colour, the stop colour. */
+.map .area {
+  fill: var(--fg);
+  stroke: var(--fg);
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+}
+.map .area.level-1 {
+  fill-opacity: 0.2;
+  stroke-opacity: 0.5;
+}
+.map .area.level-2 {
+  fill-opacity: 0.45;
+  stroke-opacity: 0.9;
+}
+.map .area.level-3 {
+  fill: var(--stop);
+  stroke: var(--stop);
+  fill-opacity: 0.75;
+}
+
+/* TwoLines: a main line with a detail line under it. */
+.two-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.two-lines .detail {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  line-height: 1.2;
+}
+
+/* LevelMark: three steps, as many filled as the level. */
+.status .steps {
+  width: 40px;
+  height: 28px;
+}
+.steps rect {
+  fill: none;
+  stroke: var(--dim);
+  stroke-width: 2;
+}
+.steps rect.on {
+  fill: var(--fg);
+  stroke: var(--fg);
+}
+.level-3 .steps rect.on {
+  fill: var(--stop);
+  stroke: var(--stop);
+}
+
 /* Status: shape and word together, colour only reinforces. */
 .status {
   display: flex;

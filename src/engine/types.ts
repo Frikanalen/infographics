@@ -10,8 +10,10 @@ export interface InfoModule<T> {
   /** Shown in the footer, after "Kilde:". */
   source: string
   /** Fetch or compute the data. Leave out until a live source exists: the
-   *  module then only appears in demo mode, drawn from `example`. */
-  load?: (now: Date) => Promise<T> | T
+   *  module then only appears in demo mode, drawn from `example`. Give null
+   *  when there is nothing to show now (out of season): the module leaves
+   *  the page until a later load has something. */
+  load?: (now: Date) => Promise<T | null> | T | null
   /** Minutes between loads. */
   refreshMinutes: number
   /** Data older than this is not shown. Leave out for modules that compute. */

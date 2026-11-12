@@ -64,13 +64,15 @@ is an object with:
 - `View`: draws the data, using the blocks
 
 Build the view from the blocks in `src/blocks/` (`Rows`, `Row`, `PlaceName`,
-`HeroNumber`, `CountryMap`, `HourBars`, `DayTrack`, `Status`, `Notice`) and a
+`HeroNumber`, `CountryMap`, `HourBars`, `DayTrack`, `Status`, `LevelMark`,
+`TwoLines`, `Notice`) and a
 module rarely needs CSS of its own.
 
 ## The design language
 
 - **Each colour has one job.** Amber is time, coral is stop, green is go, plum
-  marks the source. Data is drawn in the neutral foreground.
+  marks the source. Data is drawn in the neutral foreground. Warning levels
+  are told apart by count and word; only the highest is drawn in coral.
 - **North to south.** Every list and map runs from north to south, and no
   place is treated as home.
 - **Flat and ruled.** Hairlines and whitespace, no cards or shadows.
@@ -89,6 +91,8 @@ under the SIL Open Font License.
 | Daylight, solstice, day change | computed in the template |
 | Electricity | hvakosterstrommen.no, fetched by the template |
 | Weather | MET Norway, through this template's own server (see below) |
+| Danger warnings | MET Norway's MetAlerts, the same way; land and coast only |
+| Avalanche danger | NVE (Varsom), fetched by the template; leaves the rotation out of season |
 | Mountain passes | example only for now |
 
 ## Data sources that need a server

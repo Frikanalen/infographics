@@ -29,6 +29,12 @@ describe("showing", () => {
     expect(showing(p, {}, 0, true)[0].modules[0].data).toBe(3)
   })
 
+  it("drops a module that has nothing to show now", () => {
+    const p = page("p", fresh, computed)
+    const loaded = { fresh: { data: null, at: 0 }, computed: { data: 20, at: 0 } }
+    expect(ids(showing(p, loaded, 0, false))).toEqual(["computed"])
+  })
+
   it("keeps a stack together and drops only its stale member", () => {
     const stacked: Page = { id: "s", title: "s", seconds: 30, modules: [{ stack: [fresh, computed], columns: 4 }] }
     const loaded = { fresh: { data: 10, at: 0 }, computed: { data: 20, at: 0 } }

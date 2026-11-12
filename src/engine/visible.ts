@@ -15,7 +15,8 @@ export interface Column {
 /**
  * The modules on a page that have something true to show right now, column
  * by column. A module with no data, or with data past its maximum age,
- * leaves the page instead of showing a wrong number, and a column left
+ * leaves the page instead of showing a wrong number. So does a module whose
+ * load gave null, which means it has nothing to show now. A column left
  * empty gives its width to the others. In demo mode everything is drawn
  * from its example data.
  */
@@ -29,7 +30,8 @@ export function showing(page: Page, loaded: Loaded, now: number, demo: boolean):
         continue
       }
       const entry = loaded[module.id]
-      if (!entry) continue
+      // null is a module saying it has nothing to show now, such as out of season.
+      if (!entry || entry.data === null) continue
       const limit = module.maxAgeMinutes
       if (limit !== undefined && now - entry.at > limit * 60000) continue
       modules.push({ module, data: entry.data, fetchedAt: limit === undefined ? undefined : entry.at })
