@@ -9,6 +9,7 @@ import type { Page } from "./engine/types"
 import { avalancheModule } from "./modules/avalanche"
 import { daylightModule } from "./modules/daylight"
 import { electricityModule } from "./modules/electricity"
+import { powerFlowRowsModule, powerNetModule } from "./modules/powerflow"
 import { passMapModule, passRowsModule } from "./modules/passes"
 import { scheduleModule } from "./modules/schedule"
 import { dayChangeModule, solsticeModule } from "./modules/solstice"
@@ -74,6 +75,16 @@ export const rundown: Page[] = [
     subtitle: "øre per kWh, uten avgifter",
     seconds: 40,
     modules: [{ module: electricityModule, columns: 12 }],
+  },
+  {
+    id: "kraftflyt",
+    title: "Kraftflyt",
+    subtitle: "strøm inn og ut av Norge akkurat nå",
+    seconds: 40,
+    modules: [
+      { module: powerNetModule, columns: 4 },
+      { module: powerFlowRowsModule, columns: 8 },
+    ],
   },
   {
     id: "fjell",

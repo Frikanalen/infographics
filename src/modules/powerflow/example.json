@@ -1,0 +1,172 @@
+{
+  "flow": [
+    {
+      "OutAreaElspotId": "DK1",
+      "InAreaElspotId": "DE",
+      "Value": -632.6219,
+      "MeasureDate": 1794500389000.0
+    },
+    {
+      "OutAreaElspotId": "DK1",
+      "InAreaElspotId": "NL",
+      "Value": 690.584,
+      "MeasureDate": 1794500389000.0
+    },
+    {
+      "OutAreaElspotId": "DK1",
+      "InAreaElspotId": "SE3",
+      "Value": -642.8222,
+      "MeasureDate": 1794500389000.0
+    },
+    {
+      "OutAreaElspotId": "NO1",
+      "InAreaElspotId": "NO2",
+      "Value": 623.5877,
+      "MeasureDate": 1794500389000.0
+    },
+    {
+      "OutAreaElspotId": "NO1",
+      "InAreaElspotId": "NO3",
+      "Value": -274.6066,
+      "MeasureDate": 1794500389000.0
+    },
+    {
+      "OutAreaElspotId": "NO1",
+      "InAreaElspotId": "NO5",
+      "Value": -2053.6656,
+      "MeasureDate": 1794500389000.0
+    },
+    {
+      "OutAreaElspotId": "NO1",
+      "InAreaElspotId": "SE3",
+      "Value": -1362.9125,
+      "MeasureDate": 1794500389000.0
+    },
+    {
+      "OutAreaElspotId": "NO2",
+      "InAreaElspotId": "DE",
+      "Value": 893.7328,
+      "MeasureDate": 1794500389000.0
+    },
+    {
+      "OutAreaElspotId": "NO2",
+      "InAreaElspotId": "DK1",
+      "Value": 880.905,
+      "MeasureDate": 1794500389000.0
+    },
+    {
+      "OutAreaElspotId": "NO2",
+      "InAreaElspotId": "EN",
+      "Value": 1448.8914,
+      "MeasureDate": 1794500389000.0
+    },
+    {
+      "OutAreaElspotId": "NO2",
+      "InAreaElspotId": "NL",
+      "Value": 0.0,
+      "MeasureDate": 1794500389000.0
+    },
+    {
+      "OutAreaElspotId": "NO2",
+      "InAreaElspotId": "NO5",
+      "Value": -575.9766,
+      "MeasureDate": 1794500389000.0
+    },
+    {
+      "OutAreaElspotId": "NO3",
+      "InAreaElspotId": "NO4",
+      "Value": -1101.0037,
+      "MeasureDate": 1794500389000.0
+    },
+    {
+      "OutAreaElspotId": "NO3",
+      "InAreaElspotId": "NO5",
+      "Value": 168.572,
+      "MeasureDate": 1794500389000.0
+    },
+    {
+      "OutAreaElspotId": "NO3",
+      "InAreaElspotId": "SE2",
+      "Value": -479.8997,
+      "MeasureDate": 1794500389000.0
+    },
+    {
+      "OutAreaElspotId": "NO4",
+      "InAreaElspotId": "FI",
+      "Value": -50.5049,
+      "MeasureDate": 1794500389000.0
+    },
+    {
+      "OutAreaElspotId": "NO4",
+      "InAreaElspotId": "SE1",
+      "Value": -156.0089,
+      "MeasureDate": 1794500389000.0
+    },
+    {
+      "OutAreaElspotId": "NO4",
+      "InAreaElspotId": "SE2",
+      "Value": -103.3595,
+      "MeasureDate": 1794500389000.0
+    },
+    {
+      "OutAreaElspotId": "SE2",
+      "InAreaElspotId": "SE3",
+      "Value": 7234.4375,
+      "MeasureDate": 1794500389000.0
+    }
+  ],
+  "overview": {
+    "MeasuredAt": 1794498300000.0,
+    "ProductionData": [
+      {
+        "value": "",
+        "countryCode": null,
+        "measuredAt": null
+      },
+      {
+        "value": "21 884",
+        "countryCode": "SE",
+        "measuredAt": null
+      },
+      {
+        "value": "20 679",
+        "countryCode": "NO",
+        "measuredAt": null
+      }
+    ],
+    "ConsumptionData": [
+      {
+        "value": "",
+        "countryCode": null,
+        "measuredAt": null
+      },
+      {
+        "value": "22 337",
+        "countryCode": "SE",
+        "measuredAt": "2026-11-12T15:30:00.0000000+00:00"
+      },
+      {
+        "value": "20 379",
+        "countryCode": "NO",
+        "measuredAt": "2026-11-12T15:30:00.0000000+00:00"
+      }
+    ],
+    "NetExchangeData": [
+      {
+        "value": "",
+        "countryCode": null,
+        "measuredAt": null
+      },
+      {
+        "value": "453",
+        "countryCode": "SE",
+        "measuredAt": null
+      },
+      {
+        "value": "-300",
+        "countryCode": "NO",
+        "measuredAt": null
+      }
+    ]
+  }
+}

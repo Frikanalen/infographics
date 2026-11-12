@@ -90,6 +90,7 @@ under the SIL Open Font License.
 |---|---|
 | Daylight, solstice, day change | computed in the template |
 | Electricity | hvakosterstrommen.no, fetched by the template |
+| Power flow (Kraftflyt) | Statnett's driftsdata, through this template's own server (no CORS) |
 | Weather | MET Norway, through this template's own server (see below) |
 | Danger warnings | MET Norway's MetAlerts, the same way; land and coast only |
 | På Frikanalen | the channel's own schedule, frikanalen.tv/api/scheduleitems |
@@ -102,7 +103,8 @@ under the SIL Open Font License.
 A browser will not let a page choose its own User-Agent, and some sources
 (MET Norway) require one that says who is calling. So the template asks its
 own server for `/met/...`, and the server passes the request on with the
-right header and caches the answer. `nginx.conf` does this on air and
+right header and caches the answer. Statnett's `/statnett/...` goes the same
+way, because Statnett sends no CORS header. `nginx.conf` does this on air and
 `vite.config.ts` does the same in development. A source that needs a key or
 an account can be added the same way, with the secret kept on the server.
 
