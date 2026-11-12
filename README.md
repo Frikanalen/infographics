@@ -134,3 +134,18 @@ producer at `dist/index.html?duration=<ms>`, or at wherever `dist/` is
 served. Opened as a plain file, modules that need the server (weather) leave
 the rotation. The template is 1280×720, stays dark until `play()`, and
 answers to `play()`, `stop()` and `next()`.
+
+## Commits and releases
+
+Commit messages follow [Conventional Commits](https://www.conventionalcommits.org/):
+`feat: tide tables page`, `fix(weather): pick the current forecast hour`,
+`docs: ...`, `chore: ...`. A pull request is squashed into one commit named
+after its title, so the title is what must follow the pattern; the Check
+workflow says so if it does not.
+
+[release-please](https://github.com/googleapis/release-please) reads those
+commits on `main` and keeps a release pull request open with the next
+version and the changelog. A `feat` gives a minor release, a `fix` a patch.
+Merging that pull request tags the release, bumps `package.json` and
+`chart/Chart.yaml`, and builds the image `ghcr.io/frikanalen/infographics:v<version>`,
+which is the image the chart asks for unless told otherwise.
