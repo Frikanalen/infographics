@@ -104,6 +104,7 @@ under the SIL Open Font License.
 | Power flow (Kraftflyt) | Statnett's driftsdata, through this template's own server (no CORS) |
 | Weather | MET Norway, through this template's own server (see below) |
 | Danger warnings | MET Norway's MetAlerts, the same way; land and coast only |
+| Stortinget | the Storting's open data (data.stortinget.no), through this template's own server |
 | På Frikanalen | the channel's own schedule, frikanalen.tv/api/scheduleitems |
 | Trains | Entur's journey planner, fetched by the template |
 | Avalanche danger | NVE (Varsom), fetched by the template; leaves the rotation out of season |

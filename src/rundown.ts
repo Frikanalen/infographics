@@ -10,6 +10,7 @@ import { avalancheModule } from "./modules/avalanche"
 import { daylightModule } from "./modules/daylight"
 import { electricityModule } from "./modules/electricity"
 import { powerFlowRowsModule, powerNetModule } from "./modules/powerflow"
+import { parliamentFirstModule, parliamentSecondModule } from "./modules/parliament"
 import { passMapModule, passRowsModule } from "./modules/passes"
 import { scheduleModule } from "./modules/schedule"
 import { dayChangeModule, solsticeModule } from "./modules/solstice"
@@ -33,6 +34,16 @@ export const rundown: Page[] = [
     modules: [
       { module: daylightModule, columns: 8 },
       { stack: [solsticeModule, dayChangeModule], columns: 4 },
+    ],
+  },
+  {
+    id: "stortinget",
+    title: "Stortinget",
+    subtitle: "dagsorden i stortingssalen",
+    seconds: 45,
+    modules: [
+      { module: parliamentFirstModule, columns: 6 },
+      { module: parliamentSecondModule, columns: 6 },
     ],
   },
   {
