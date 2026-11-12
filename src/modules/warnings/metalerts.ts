@@ -60,8 +60,45 @@ export function isLandOrCoast(feature: Feature): boolean {
   return geographicDomain === "land" || (geographicDomain === "marine" && area.includes(" - "))
 }
 
+const polygons = (g: Polygon | MultiPolygon): number[][][][] =>
+  g.type === "Polygon" ? [g.coordinates] : g.coordinates
+
+/**
+ * MET warns for the coast one stretch at a time, so a gale along a long
+ * coast arrives as many warnings: "Lindesnes – Åna-Sira", "Åna-Sira – Karmøy".
+ * Where one stretch ends at the place the next begins, and the event and
+ * level are the same, they become one warning: "Lindesnes – Karmøy". It
+ * lasts from the earliest start to the latest end of its parts.
+ */
+export function mergeStretches(warnings: Warning[]): Warning[] {
+  const out = warnings.map((w) => ({ ...w }))
+  const ends = (w: Warning) => (w.domain === "coast" ? w.area.split(" – ") : [])
+  for (let again = true; again; ) {
+    again = false
+    for (const a of out) {
+      const [, aEnd, ...aMore] = ends(a)
+      if (!aEnd || aMore.length) continue
+      const i = out.findIndex((b) => {
+        const [bStart, bEnd, ...bMore] = ends(b)
+        return b !== a && bEnd && !bMore.length && bStart === aEnd && b.event === a.event && b.level === a.level
+      })
+      if (i < 0) continue
+      const [b] = out.splice(i, 1)
+      a.id = `${a.id}+${b.id}`
+      a.area = `${ends(a)[0]} – ${ends(b)[1]}`
+      a.from = Date.parse(b.from) < Date.parse(a.from) ? b.from : a.from
+      a.until = Date.parse(b.until) > Date.parse(a.until) ? b.until : a.until
+      a.geometry = { type: "MultiPolygon", coordinates: [...polygons(a.geometry), ...polygons(b.geometry)] }
+      a.lat = geoCentroid(a.geometry)[1]
+      again = true
+      break
+    }
+  }
+  return out
+}
+
 export function parseAlerts(features: Feature[]): Warning[] {
-  return features.filter(isLandOrCoast).map((feature) => {
+  const warnings = features.filter(isLandOrCoast).map((feature): Warning => {
     const p = feature.properties
     const geometry = rewind(feature.geometry)
     return {
@@ -76,6 +113,7 @@ export function parseAlerts(features: Feature[]): Warning[] {
       geometry,
     }
   })
+  return mergeStretches(warnings)
 }
 
 /**

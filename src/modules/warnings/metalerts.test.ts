@@ -1,7 +1,7 @@
 import { geoArea } from "d3-geo"
 import { expect, it } from "vitest"
 import example from "./example.json"
-import { parseAlerts, pick, rewind, when, type Feature, type Warning } from "./metalerts"
+import { mergeStretches, parseAlerts, pick, rewind, when, type Feature, type Warning } from "./metalerts"
 
 const features = example.features as Feature[]
 
@@ -50,6 +50,33 @@ const warning = (over: Partial<Warning>): Warning => ({
   lat: 60,
   geometry: { type: "Polygon", coordinates: [] },
   ...over,
+})
+
+it("joins coastal stretches that meet into one warning", () => {
+  const square = (lat: number) => ({
+    type: "Polygon" as const,
+    coordinates: [[[5, lat], [5, lat + 1], [6, lat + 1], [6, lat], [5, lat]]],
+  })
+  const merged = mergeStretches([
+    warning({ area: "Karmøy – Fedje", geometry: square(59), until: "2026-11-13T18:00:00Z" }),
+    warning({ area: "Lindesnes – Åna-Sira", geometry: square(57), from: "2026-11-12T08:00:00Z" }),
+    warning({ area: "Åna-Sira – Karmøy", geometry: square(58) }),
+    warning({ area: "Fedje – Stad", level: 2 }), // more serious: stays by itself
+    warning({ area: "Stad – Frøya", event: "Storm" }), // another event
+    warning({ area: "Fedje – Stad", domain: "land" }), // only the coast is joined
+  ])
+  expect(merged.map((w) => `${w.area} ${w.event} ${w.level} ${w.domain}`).sort()).toEqual([
+    "Fedje – Stad Kuling 1 land",
+    "Fedje – Stad Kuling 2 coast",
+    "Lindesnes – Fedje Kuling 1 coast",
+    "Stad – Frøya Storm 1 coast",
+  ])
+  const long = merged.find((w) => w.area === "Lindesnes – Fedje")!
+  expect(long.from).toBe("2026-11-12T08:00:00Z")
+  expect(long.until).toBe("2026-11-13T18:00:00Z")
+  expect(long.geometry.coordinates).toHaveLength(3)
+  expect(long.lat).toBeGreaterThan(58)
+  expect(long.lat).toBeLessThan(59)
 })
 
 it("gives rows to the most serious, then orders them north to south", () => {
