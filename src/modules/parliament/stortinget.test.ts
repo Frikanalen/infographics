@@ -84,6 +84,19 @@ describe("agenda lines", () => {
     expect(shortTitle("Muntlig spørretime")).toBe("Muntlig spørretime")
   })
 
+  it("leaves out the remark on the lines after the title", () => {
+    expect(
+      shortTitle(
+        "Debatt om kultur- og likestillingsministerens redegjørelse om mediepolitikk og ytringsfrihet\r\n(Redegjørelsen holdt i Stortingets møte 10. november 2026)",
+      ),
+    ).toBe("Debatt om kultur- og likestillingsministerens redegjørelse om mediepolitikk og ytringsfrihet")
+    expect(
+      shortTitle(
+        "Redegjørelse av justis- og beredskapsministeren om PST og Justis- og beredskapsdepartementets styring av PST\n(Det vil bli foreslått debatt umiddelbart etter redegjørelsen)",
+      ),
+    ).toBe("Redegjørelse av justis- og beredskapsministeren om PST og Justis- og beredskapsdepartementets styring av PST")
+  })
+
   it("leaves out the formal last item", () => {
     expect(
       parseAgenda([
