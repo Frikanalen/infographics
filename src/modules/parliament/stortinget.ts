@@ -8,7 +8,12 @@
 
 export interface AgendaItem {
   number: number
+  /** What the matter is about. */
   text: string
+  /** Where it comes from: the committee and who put the proposal. */
+  from?: string
+  /** A remark the agenda carries with the item. */
+  remark?: string
 }
 
 export interface SittingDay {
@@ -63,29 +68,75 @@ export function parseNotes(merknad: string | null): string[] {
     .filter(Boolean)
 }
 
+const capital = (text: string) => text.charAt(0).toUpperCase() + text.slice(1)
+
 /**
- * An agenda line without its preamble. Most lines open with which committee
- * the recommendation is from and which members put the proposal; on screen
- * there is room for what it is about.
+ * An agenda line, taken apart. Most lines open with which committee the
+ * recommendation is from and which members put the proposal. That goes in
+ * `from`, so the first thing on screen is what the matter is about. Nothing
+ * is thrown away. Lines after the first are remarks, such as
+ * "(Redegjørelsen holdt i Stortingets møte 10. november 2026)".
  */
-export function shortTitle(text: string): string {
-  // Lines after the first are remarks, such as "(Redegjørelsen holdt i
-  // Stortingets møte 10. november 2026)" or "(Det vil bli foreslått debatt …)".
-  const short = text
-    .split(/\r?\n/)[0]
-    .replace(/\s+/g, " ")
-    .trim()
-    .replace(/^Innstilling(er)? fr[aå] .*?komit[eé]en om /i, "")
-    .replace(/^(Representantforslag|Grunnlovsforslag) fr[aå] .*? om /i, "$1 om ")
-  return short.charAt(0).toUpperCase() + short.slice(1)
+export function parseItemText(raw: string): Omit<AgendaItem, "number"> {
+  const [first = "", ...rest] = raw.split(/\r?\n/).map((line) => line.replace(/\s+/g, " ").trim())
+  const from: string[] = []
+  let text = first.replace(/^(Innstilling(?:er)? fr[aå] .*?komit[eé]en) om /i, (_, committee: string) => {
+    from.push(committee)
+    return ""
+  })
+  text = text.replace(
+    /^(Representantforslag|Grunnlovsforslag) fr[aå] (?:stortingsrepresentant(?:ene|ane|en) )?(.*?) om /i,
+    (_, kind: string, members: string) => {
+      from.push(`${from.length ? "forslag" : "Forslag"} fra ${members}`)
+      return `${kind} om `
+    },
+  )
+  const remark = rest.filter(Boolean).join(" ").replace(/^\((.*)\)$/, "$1")
+  return {
+    text: capital(text),
+    ...(from.length ? { from: from.join(", ") } : {}),
+    ...(remark ? { remark } : {}),
+  }
 }
 
 export function parseAgenda(items: RawAgendaItem[]): AgendaItem[] {
   return items
-    .map((item) => ({ number: item.dagsordensak_nummer, text: shortTitle(item.dagsordensak_tekst ?? "") }))
+    .map((item) => ({ number: item.dagsordensak_nummer, ...parseItemText(item.dagsordensak_tekst ?? "") }))
     // Every agenda ends with "Referat", a formality.
     .filter((item) => item.text && item.text !== "Referat")
     .sort((a, b) => a.number - b.number)
+}
+
+// How much room an item takes on a full-width page, estimated from its
+// length, so a long agenda can be split over several screens without
+// measuring text. The figures are on the careful side.
+const TEXT_PER_LINE = 54
+const TEXT_LINE = 36
+const DETAIL_PER_LINE = 66
+const DETAIL_LINE = 29
+const ROW_PADDING = 34
+const ROOM = 440
+
+const lines = (text: string | undefined, perLine: number) => (text ? Math.ceil(text.length / perLine) : 0)
+export const itemHeight = (item: AgendaItem) =>
+  ROW_PADDING +
+  lines(item.text, TEXT_PER_LINE) * TEXT_LINE +
+  (lines(item.from, DETAIL_PER_LINE) + lines(item.remark, DETAIL_PER_LINE)) * DETAIL_LINE
+
+/** The agenda in screens, each with as many whole items as fit. */
+export function screens(agenda: AgendaItem[]): AgendaItem[][] {
+  const out: AgendaItem[][] = []
+  let used = 0
+  for (const item of agenda) {
+    const height = itemHeight(item)
+    if (!out.length || used + height > ROOM) {
+      out.push([])
+      used = 0
+    }
+    out.at(-1)!.push(item)
+    used += height
+  }
+  return out
 }
 
 interface PlannedDay {

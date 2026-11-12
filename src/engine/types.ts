@@ -20,7 +20,11 @@ export interface InfoModule<T> {
   maxAgeMinutes?: number
   /** Sample data. Lets anyone see the module without a network. */
   example: T
-  View: ComponentType<{ data: T; now: Date }>
+  /** How many screens the data needs right now, for a list too long for
+   *  one. The page stays its number of seconds on each, and the View is
+   *  told which one to draw. Leave out for a module that fits on one. */
+  steps?: (data: T, now: Date) => number
+  View: ComponentType<{ data: T; now: Date; step: number }>
 }
 
 /** One module, or several stacked on top of each other, in a number of columns. */

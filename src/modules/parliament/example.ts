@@ -11,12 +11,23 @@ export function exampleSittings(now: Date): Sittings {
     {
       date: dayKey(at(-1)),
       start: at(-1),
-      notes: [],
+      notes: ["Votering kl. 15.00"],
       agenda: [
         { number: 1, text: "Redegjørelse av kultur- og likestillingsministeren om mediepolitikk og ytringsfrihet" },
         {
           number: 2,
-          text: "Representantforslag om å be regjeringa greie ut alternativet «Ny framtid for Nationaltheatret» grundigare",
+          text: "Representantforslag om en tydelig og forpliktende integreringskontrakt",
+          from: "Innstilling fra kommunal- og forvaltningskomiteen, forslag fra Kari Nordmann, Ola Nordmann, Per Hansen og Anne Olsen",
+        },
+        {
+          number: 3,
+          text: "Representantforslag om egenbetaling for tolketjenester etter tre års opphold i Norge",
+          from: "Innstilling fra kommunal- og forvaltningskomiteen, forslag fra Kari Nordmann og Ola Nordmann",
+        },
+        {
+          number: 4,
+          text: "Redegjørelse av justis- og beredskapsministeren om PST og Justis- og beredskapsdepartementets styring av PST",
+          remark: "Det vil bli foreslått debatt umiddelbart etter redegjørelsen",
         },
       ],
     },
@@ -25,12 +36,16 @@ export function exampleSittings(now: Date): Sittings {
       start: at(0),
       notes: ["Votering kl. 14.00"],
       agenda: [
-        { number: 1, text: "Endringer i statsbudsjettet 2026 under Kommunal- og distriktsdepartementet" },
-        { number: 2, text: "Representantforslag om en nasjonal plan for fergefri kyststamvei" },
-        { number: 3, text: "Lov om endringer i opplæringslova (rett til fysisk skolebibliotek)" },
-        { number: 4, text: "Riksrevisjonens undersøkelse av myndighetenes arbeid med digital sikkerhet" },
-        { number: 5, text: "Representantforslag om å sikre beredskapslagring av korn" },
-        { number: 6, text: "Interpellasjon om tannhelsetilbudet i distriktene" },
+        {
+          number: 1,
+          text: "Debatt om kultur- og likestillingsministerens redegjørelse om mediepolitikk og ytringsfrihet",
+          remark: "Redegjørelsen holdt i Stortingets møte i går",
+        },
+        {
+          number: 2,
+          text: "Representantforslag om å be regjeringa greie ut alternativet «Ny framtid for Nationaltheatret» grundigare",
+          from: "Innstilling fra familie- og kulturkomiteen, forslag fra Kari Nordmann, Ola Nordmann og Per Hansen",
+        },
       ],
     },
     { date: dayKey(at(1)), start: at(1), notes: ["Votering kl. 15.00"], agenda: null },
