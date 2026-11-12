@@ -38,6 +38,12 @@
 .row.tall {
   height: 103px;
 }
+.row.roomy {
+  height: auto;
+  min-height: 103px;
+  padding: 14px 0;
+  box-sizing: border-box;
+}
 .detail {
   font-size: var(--size-detail);
   font-weight: 500;

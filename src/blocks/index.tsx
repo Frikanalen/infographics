@@ -21,7 +21,8 @@ export function Rows({ children }: { children: ReactNode }) {
 export function Row(props: {
   columns: string
   index: number
-  size?: "compact" | "tall"
+  /** "roomy" grows with its text, for rows of several lines. */
+  size?: "compact" | "tall" | "roomy"
   gap?: number
   children: ReactNode
 }) {
