@@ -13,10 +13,21 @@ npm install
 npm run dev
 ```
 
-Then open the address Vite prints. Useful additions to the address:
+Then open the address Vite prints. You get the dev panel: the frame at its
+real 1280×720 on the left, and on the right every page and module with its
+state (ok, waiting, failed and why, too old, nothing to show now). Click a
+page to hold it, switch between live and example data, and press PLAY and
+STOP as CasparCG would.
+
+The address decides how the template opens, the same way as in
+on-air-graphics:
 
 | | |
 |---|---|
+| no `?duration` | dev panel, and the template starts by itself |
+| `?duration=<ms>` | on air: clean output that waits for `play()` |
+| `?dev=false` | clean output that starts by itself, for a screenshot or a monitor |
+| `?dev=true` | dev panel even with `?duration`; start it with the PLAY button |
 | `?demo=1` | draw every module from its example data, marked EKSEMPELDATA |
 | `?page=dagslys` | stay on one page while you work on it |
 
@@ -112,11 +123,14 @@ an account can be added the same way, with the secret kept on the server.
 
 `docker build .` gives an nginx image that serves the template and its
 pass-through under `/infographics/`. `chart/` deploys that image to a
-cluster. Point a CasparCG HTML producer at `https://<host>/infographics/`.
+cluster. Point a CasparCG HTML producer at
+`https://<host>/infographics/?duration=<ms>`. It is `?duration` that tells
+the template it is on air; without it you get the dev panel.
 
 To run without the image:
 
 `npm run build` writes the template to `dist/`. Point a CasparCG HTML
-producer at `dist/index.html`, or at wherever `dist/` is served. Opened as a
-plain file, modules that need the server (weather) leave the rotation. The template
-is 1280×720, starts by itself, and answers to `play()`, `stop()` and `next()`.
+producer at `dist/index.html?duration=<ms>`, or at wherever `dist/` is
+served. Opened as a plain file, modules that need the server (weather) leave
+the rotation. The template is 1280×720, stays dark until `play()`, and
+answers to `play()`, `stop()` and `next()`.

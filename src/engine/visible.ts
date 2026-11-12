@@ -1,4 +1,4 @@
-import { modulesOf, type InfoModule, type Loaded, type Page } from "./types"
+import { modulesOf, type InfoModule, type Loaded, type Page, type Problems } from "./types"
 
 export interface Showing {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -48,4 +48,32 @@ export function nextPage(pages: Page[], from: number, loaded: Loaded, now: numbe
     if (showing(pages[index], loaded, now, demo).length > 0) return index
   }
   return -1
+}
+
+export type ModuleState =
+  | "example" // demo mode: drawn from example data
+  | "ok"
+  | "exampleOnly" // has no load yet, so it only appears in demo mode
+  | "waiting" // first load has not come back
+  | "failed" // never loaded, and the latest try failed
+  | "stale" // loaded once, but the data is now too old to show
+  | "nothing" // loaded fine and says there is nothing to show now
+
+/** Where a module stands, for the dev panel. Mirrors the rules in `showing`. */
+export function moduleState(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  module: InfoModule<any>,
+  loaded: Loaded,
+  problems: Problems,
+  now: number,
+  demo: boolean,
+): ModuleState {
+  if (demo) return "example"
+  if (!module.load) return "exampleOnly"
+  const entry = loaded[module.id]
+  if (!entry) return problems[module.id] ? "failed" : "waiting"
+  if (entry.data === null) return "nothing"
+  const limit = module.maxAgeMinutes
+  if (limit !== undefined && now - entry.at > limit * 60000) return "stale"
+  return "ok"
 }

@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react"
-import { modulesOf, type InfoModule, type Loaded, type Page } from "./types"
+import { modulesOf, type InfoModule, type Loaded, type Page, type Problems } from "./types"
 
 /**
  * Loads every module in the rundown once, then again on its own timer.
  * A load that fails keeps the previous data; `showing` decides when that
  * data has become too old to put on screen.
  */
-export function useLoaded(pages: Page[], demo: boolean): Loaded {
+export function useLoaded(pages: Page[], demo: boolean): { loaded: Loaded; problems: Problems } {
   const [loaded, setLoaded] = useState<Loaded>({})
+  const [problems, setProblems] = useState<Problems>({})
 
   useEffect(() => {
     if (demo) return
@@ -24,9 +25,12 @@ export function useLoaded(pages: Page[], demo: boolean): Loaded {
       const run = async () => {
         try {
           const data = await load(new Date())
-          if (!stopped) setLoaded((before) => ({ ...before, [module.id]: { data, at: Date.now() } }))
+          if (stopped) return
+          setLoaded((before) => ({ ...before, [module.id]: { data, at: Date.now() } }))
+          setProblems((before) => ({ ...before, [module.id]: undefined }))
         } catch (error) {
           console.warn(`[${module.id}] could not load:`, error)
+          if (!stopped) setProblems((before) => ({ ...before, [module.id]: String(error) }))
         }
       }
       void run()
@@ -38,5 +42,5 @@ export function useLoaded(pages: Page[], demo: boolean): Loaded {
     }
   }, [pages, demo])
 
-  return loaded
+  return { loaded, problems }
 }
