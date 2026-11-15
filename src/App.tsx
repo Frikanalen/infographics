@@ -42,6 +42,9 @@ export function App() {
   // stays its seconds on each.
   const steps = Math.max(1, ...modules.map((m) => m.module.steps?.(m.data, now) ?? 1))
   const step = stepAt.turn === turn ? Math.min(stepAt.step, steps - 1) : 0
+  // A module can say how long its screen takes; the longest wish wins.
+  const wished = modules.flatMap((m) => m.module.stepSeconds?.(m.data, step, now) ?? [])
+  const seconds = wished.length ? Math.max(...wished) : (page?.seconds ?? 0)
   const upcoming = nextPage(pages, Math.max(index, 0), loaded, now.getTime(), demo)
 
   const advance = useCallback(() => setLeaving(true), [])
@@ -77,9 +80,9 @@ export function App() {
     const timer = window.setTimeout(() => {
       if (last && !held) advance()
       else setStepAt({ turn, step: last ? 0 : step + 1 })
-    }, page.seconds * 1000)
+    }, seconds * 1000)
     return () => window.clearTimeout(timer)
-  }, [page, turn, step, steps, advance, held])
+  }, [page, turn, step, steps, seconds, advance, held])
 
   // Leaving: fade the old page out, then bring the next one in.
   useEffect(() => {
@@ -118,7 +121,7 @@ export function App() {
       foot={
         <>
           {page && modules.length > 0 && (!held || steps > 1) && (
-            <i key={`${turn}-${step}`} className="progress" style={{ animationDuration: `${page.seconds}s` }} />
+            <i key={`${turn}-${step}`} className="progress" style={{ animationDuration: `${seconds}s` }} />
           )}
           <span className={sources ? "source" : undefined}>
             {demo && <span className="demo">EKSEMPELDATA</span>}
