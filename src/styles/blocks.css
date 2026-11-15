@@ -272,3 +272,37 @@
   padding-top: 8px;
   font-variant-numeric: tabular-nums;
 }
+
+/* A bulletin from the channel: a heading and one page of its text. Lines of
+   about sixty characters, so the eye finds its way back from the sofa. */
+.bulletin {
+  max-width: 940px;
+  padding-top: 28px;
+}
+.bulletin h2 {
+  margin: 0;
+  font-size: var(--size-title);
+  line-height: 1.1;
+  font-weight: 700;
+}
+.bulletin p {
+  margin: 24px 0 0;
+  font-size: var(--size-text);
+  line-height: 1.36;
+}
+.bulletin p + p {
+  margin-top: 12px;
+}
+.bulletin-label {
+  margin-bottom: 12px;
+  font-size: var(--size-label);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.bulletin-page {
+  margin-top: 24px;
+  font-size: var(--size-label);
+  color: var(--muted);
+}

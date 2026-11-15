@@ -24,6 +24,10 @@ export interface InfoModule<T> {
    *  one. The page stays its number of seconds on each, and the View is
    *  told which one to draw. Leave out for a module that fits on one. */
   steps?: (data: T, now: Date) => number
+  /** How long one of those screens stays, in seconds, when it should not be
+   *  the page's own number of seconds: a text is held for as long as it
+   *  takes to read. */
+  stepSeconds?: (data: T, step: number, now: Date) => number | undefined
   View: ComponentType<{ data: T; now: Date; step: number }>
 }
 

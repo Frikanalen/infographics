@@ -7,6 +7,7 @@
 // modules left is skipped.
 import type { Page } from "./engine/types"
 import { avalancheModule } from "./modules/avalanche"
+import { bulletinsModule } from "./modules/bulletins"
 import { daylightModule } from "./modules/daylight"
 import { electricityModule } from "./modules/electricity"
 import { powerFlowRowsModule, powerNetModule } from "./modules/powerflow"
@@ -25,6 +26,15 @@ export const rundown: Page[] = [
     subtitle: "senere i dag",
     seconds: 30,
     modules: [{ module: scheduleModule, columns: 12 }],
+  },
+  // The channel's own bulletins, written in Studio. One page of text to a
+  // screen, each held for as long as it takes to read; the seconds here are
+  // only used if a page comes without a time.
+  {
+    id: "meldinger",
+    title: "Fra Frikanalen",
+    seconds: 15,
+    modules: [{ module: bulletinsModule, columns: 12 }],
   },
   {
     id: "dagslys",

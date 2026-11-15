@@ -107,6 +107,7 @@ under the SIL Open Font License.
 | Danger warnings | MET Norway's MetAlerts, the same way; land and coast only |
 | Stortinget | the Storting's open data (data.stortinget.no), through this template's own server |
 | På Frikanalen | the channel's own schedule, frikanalen.tv/api/scheduleitems |
+| Fra Frikanalen | the channel's own bulletins, written in Studio, frikanalen.tv/api/news/bulletins?placement=infographics. The API pages the text and times each page |
 | Trains | Entur's journey planner, fetched by the template |
 | Avalanche danger | NVE (Varsom), fetched by the template; leaves the rotation out of season |
 | Mountain passes | example only for now |
