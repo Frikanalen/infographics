@@ -3,7 +3,8 @@ import { Detail, ModuleLabel, Notice, Row, Rows, TimeText } from "../../blocks"
 import { osloMinutes } from "../../engine/time"
 import type { InfoModule } from "../../engine/types"
 import example from "./example.json"
-import { isOn, loadSchedule, parseSchedule, restOfDay, type Programme } from "./frikanalen"
+import grants from "../airtime/example.json"
+import { creditOf, isOn, loadSchedule, parseSchedule, restOfDay, type Programme } from "./frikanalen"
 
 const ROWS = 7
 
@@ -18,7 +19,7 @@ export const scheduleModule: InfoModule<Programme[]> = {
   refreshMinutes: 10,
   maxAgeMinutes: 60,
   load: loadSchedule,
-  example: parseSchedule(example.results),
+  example: parseSchedule(example.results, grants),
   View: ({ data, now }) => {
     const { today, next } = restOfDay(data, now)
     if (!today.length)
@@ -54,7 +55,7 @@ export const scheduleModule: InfoModule<Programme[]> = {
                 )}
                 <span style={ellipsis}>{programme.title}</span>
                 <Detail right>
-                  <span style={{ ...ellipsis, display: "block", fontVariantNumeric: "normal" }}>{programme.by}</span>
+                  <span style={{ ...ellipsis, display: "block", fontVariantNumeric: "normal" }}>{creditOf(shown, i)}</span>
                 </Detail>
               </Row>
             )
