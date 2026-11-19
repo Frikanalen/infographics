@@ -6,6 +6,7 @@
 // A module that has nothing true to show leaves the page, and a page with no
 // modules left is skipped.
 import type { Page } from "./engine/types"
+import { airtimeModule } from "./modules/airtime"
 import { avalancheModule } from "./modules/avalanche"
 import { bulletinsModule } from "./modules/bulletins"
 import { daylightModule } from "./modules/daylight"
@@ -26,6 +27,13 @@ export const rundown: Page[] = [
     subtitle: "senere i dag",
     seconds: 30,
     modules: [{ module: scheduleModule, columns: 12 }],
+  },
+  {
+    id: "sendetid",
+    title: "Sendetid i dag",
+    subtitle: "hvem som disponerer sendetiden",
+    seconds: 30,
+    modules: [{ module: airtimeModule, columns: 12 }],
   },
   // The channel's own bulletins, written in Studio. One page of text to a
   // screen, each held for as long as it takes to read; the seconds here are

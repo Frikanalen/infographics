@@ -1,6 +1,7 @@
 import { expect, it } from "vitest"
 import example from "./example.json"
-import { isOn, parseSchedule, restOfDay } from "./frikanalen"
+import grants from "../airtime/example.json"
+import { creditOf, isOn, parseSchedule, restOfDay } from "./frikanalen"
 
 const programmes = parseSchedule(example.results)
 
@@ -36,4 +37,19 @@ it("names the first programme of tomorrow when today is over", () => {
   const { today, next } = restOfDay(programmes, new Date("2026-11-12T22:00:00+01:00"))
   expect(today).toEqual([])
   expect(next).toMatchObject({ start: "2026-11-13T08:00:00+01:00", title: "Israel - Guds folk - del 2" })
+})
+
+it("names the holder of the airtime once for a run of its programmes", () => {
+  const item = (time: string, by: string, grant: number | null) => ({
+    starttime: `2026-11-12T${time}:00+01:00`,
+    endtime: `2026-11-12T${time}:30+01:00`,
+    grant,
+    video: { name: `Programme at ${time}`, organization: { name: by } },
+  })
+  const nuug = { ...grants[0], id: 1, organization: { id: 82, name: "NUUG" } }
+  const run = parseSchedule(
+    [item("19:00", "NUUG", 1), item("19:30", "NUUG", 1), item("20:00", "Gjesten", 1), item("21:00", "Frikanalen", null)],
+    [nuug],
+  )
+  expect(run.map((_, i) => creditOf(run, i))).toEqual(["NUUG", "", "Gjesten", "Frikanalen"])
 })

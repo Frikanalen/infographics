@@ -1,0 +1,162 @@
+[
+  {
+    "id": 7,
+    "organization": {
+      "id": 296,
+      "name": "Agape Tromøy",
+      "fkmember": true
+    },
+    "starttime": "2026-11-12T08:00:00+01:00",
+    "endtime": "2026-11-12T09:00:00+01:00"
+  },
+  {
+    "id": 25,
+    "organization": {
+      "id": 135,
+      "name": "Bladet Evangelisten AS",
+      "fkmember": true
+    },
+    "starttime": "2026-11-12T09:00:00+01:00",
+    "endtime": "2026-11-12T10:00:00+01:00"
+  },
+  {
+    "id": 37,
+    "organization": {
+      "id": 143,
+      "name": "Evangeliekirken Arendal",
+      "fkmember": true
+    },
+    "starttime": "2026-11-12T10:00:00+01:00",
+    "endtime": "2026-11-12T11:00:00+01:00"
+  },
+  {
+    "id": 49,
+    "organization": {
+      "id": 251,
+      "name": "Sannheten",
+      "fkmember": true
+    },
+    "starttime": "2026-11-12T11:00:00+01:00",
+    "endtime": "2026-11-12T12:00:00+01:00"
+  },
+  {
+    "id": 91,
+    "organization": {
+      "id": 296,
+      "name": "Agape Tromøy",
+      "fkmember": true
+    },
+    "starttime": "2026-11-12T17:00:00+01:00",
+    "endtime": "2026-11-12T18:00:00+01:00"
+  },
+  {
+    "id": 110,
+    "organization": {
+      "id": 143,
+      "name": "Evangeliekirken Arendal",
+      "fkmember": true
+    },
+    "starttime": "2026-11-12T18:00:00+01:00",
+    "endtime": "2026-11-12T19:00:00+01:00"
+  },
+  {
+    "id": 130,
+    "organization": {
+      "id": 251,
+      "name": "Sannheten",
+      "fkmember": true
+    },
+    "starttime": "2026-11-12T19:00:00+01:00",
+    "endtime": "2026-11-12T20:00:00+01:00"
+  },
+  {
+    "id": 140,
+    "organization": {
+      "id": 82,
+      "name": "NUUG",
+      "fkmember": true
+    },
+    "starttime": "2026-11-12T20:00:00+01:00",
+    "endtime": "2026-11-12T21:30:00+01:00"
+  },
+  {
+    "id": 10,
+    "organization": {
+      "id": 296,
+      "name": "Agape Tromøy",
+      "fkmember": true
+    },
+    "starttime": "2026-11-13T08:00:00+01:00",
+    "endtime": "2026-11-13T09:00:00+01:00"
+  },
+  {
+    "id": 28,
+    "organization": {
+      "id": 135,
+      "name": "Bladet Evangelisten AS",
+      "fkmember": true
+    },
+    "starttime": "2026-11-13T09:00:00+01:00",
+    "endtime": "2026-11-13T10:00:00+01:00"
+  },
+  {
+    "id": 40,
+    "organization": {
+      "id": 143,
+      "name": "Evangeliekirken Arendal",
+      "fkmember": true
+    },
+    "starttime": "2026-11-13T10:00:00+01:00",
+    "endtime": "2026-11-13T11:00:00+01:00"
+  },
+  {
+    "id": 52,
+    "organization": {
+      "id": 251,
+      "name": "Sannheten",
+      "fkmember": true
+    },
+    "starttime": "2026-11-13T11:00:00+01:00",
+    "endtime": "2026-11-13T12:00:00+01:00"
+  },
+  {
+    "id": 94,
+    "organization": {
+      "id": 296,
+      "name": "Agape Tromøy",
+      "fkmember": true
+    },
+    "starttime": "2026-11-13T17:00:00+01:00",
+    "endtime": "2026-11-13T18:00:00+01:00"
+  },
+  {
+    "id": 103,
+    "organization": {
+      "id": 82,
+      "name": "NUUG",
+      "fkmember": true
+    },
+    "starttime": "2026-11-13T17:30:00+01:00",
+    "endtime": "2026-11-13T18:00:00+01:00"
+  },
+  {
+    "id": 113,
+    "organization": {
+      "id": 143,
+      "name": "Evangeliekirken Arendal",
+      "fkmember": true
+    },
+    "starttime": "2026-11-13T18:00:00+01:00",
+    "endtime": "2026-11-13T19:00:00+01:00"
+  },
+  {
+    "id": 133,
+    "organization": {
+      "id": 251,
+      "name": "Sannheten",
+      "fkmember": true
+    },
+    "starttime": "2026-11-13T19:00:00+01:00",
+    "endtime": "2026-11-13T20:00:00+01:00"
+  }
+]
