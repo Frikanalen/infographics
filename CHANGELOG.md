@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.3.0](https://github.com/Frikanalen/infographics/compare/v0.2.0...v0.3.0) (2026-11-19)
+
+
+### Features
+
+* a page for who holds the airtime today, and the holder in the schedule ([#7](https://github.com/Frikanalen/infographics/issues/7)) ([8b53275](https://github.com/Frikanalen/infographics/commit/8b53275384f7b6bffe60e4c48583923607253e01))
+
+
+### Bug Fixes
+
+* update nginx to 1.30.7 (nginx2root CVEs) ([#9](https://github.com/Frikanalen/infographics/issues/9)) ([0dd35b6](https://github.com/Frikanalen/infographics/commit/0dd35b65a684d2fd8dc212e47e37060b88f57ae7))
+
 ## [0.2.0](https://github.com/Frikanalen/infographics/compare/v0.1.0...v0.2.0) (2026-11-15)
 
 
